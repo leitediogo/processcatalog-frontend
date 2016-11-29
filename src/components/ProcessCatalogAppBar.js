@@ -11,17 +11,14 @@ let style ={
 }
 
 class ProcessCatalogAppBar extends Component {
-    constructor() {
-        super()
-        this.state = { ProcessCatalog: '', ProcessCatalogList: [] }
-    }
+
     render() {
         return (
             <MuiThemeProvider>
                 <div>
                     <AppBar
                         style={style}
-                        title="Catalog"
+                        title="Process Catalog"
                         iconElementRight={<ProcessCatalogAppBarRightIconMenu />}
                         iconElementLeft={<ProcessCatalogAppBarLeftIconMenu />}
                         />
