@@ -28,5 +28,4 @@ class ProcessCatalogAddFloatingButton extends Component {
     }
 }
 
-
 export default ProcessCatalogAddFloatingButton

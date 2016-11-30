@@ -25,10 +25,20 @@ class ProcessCatalogCardList extends Component {
     }
 
     render() {
+        //filter by Business Area
+        let processFilterByArea
+        console.log (this.props.filter)
+        if (!this.props.filter || this.props.filter === 'All')
+            processFilterByArea= this.state.process
+        else
+            processFilterByArea = this.state.process.filter(function(process) {
+                return process.definition.businessArea === 'Marketing'
+            })
+
         let cards = [];
-        for (var i = 0; i < this.state.process.length; i++) {
+        for (var i = 0; i < processFilterByArea.length; i++) {
             cards.push(
-                <ProcessCatalogCard process={this.state.process[i]} avatar={avatar} key={i}  />
+                <ProcessCatalogCard process={processFilterByArea[i]} avatar={avatar} key={i} />
             )
         }
         return (
@@ -38,6 +48,9 @@ class ProcessCatalogCardList extends Component {
                 <br />
                 <div style={style}>{cards}</div>
                 <ProcessCatalogAddFloatingButton />
+                <br />
+                <br />
+                <br />
             </div>
         )
     }

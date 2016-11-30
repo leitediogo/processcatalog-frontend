@@ -13,6 +13,7 @@ import Checkbox from 'material-ui/Checkbox'
 import agent from 'superagent'
 import Dialog from 'material-ui/Dialog'
 import { browserHistory } from 'react-router'
+import { List, ListItem } from 'material-ui/List';
 
 const iconDelete = <IconDelete />
 
@@ -44,13 +45,13 @@ class AddProcessWizard extends Component {
             stepIndex: 0,
             open: false,
             id: 0,
-            process: {
+            definition: {
                 name: '',
                 description: '',
                 businessArea: '',
                 type: '',
                 help: '',
-                status: 'parametrization',
+                status: 'Parametrization',
                 version: '1.0',
                 notifySupervisorOnEnd: false,
                 notifySupervisorOnError: false,
@@ -60,7 +61,7 @@ class AddProcessWizard extends Component {
                 step: [],
                 createdBy: 'Diogo Leite',
                 tmpStepName: '',
-                tmpStepType: 1,
+                tmpStepType: '',
                 tmpSupervisorName: '',
                 tmpSupervisorFunc: ''
             }
@@ -72,7 +73,7 @@ class AddProcessWizard extends Component {
     handleInputChange = (e) => {
         console.log(e.target)
         let change = this.state
-        change.process[e.target.id] = e.target.value
+        change.definition[e.target.id] = e.target.value
         this.setState(change)
         console.log(this.state)
     }
@@ -80,10 +81,10 @@ class AddProcessWizard extends Component {
     handleCheckChange = (e) => {
         console.log(e.target)
         let change = this.state
-        if (change.process[e.target.id] === false)
-            change.process[e.target.id] = true
+        if (change.definition[e.target.id] === false)
+            change.definition[e.target.id] = true
         else
-            change.process[e.target.id] = false
+            change.definition[e.target.id] = false
         this.setState(change)
         console.log(this.state)
     }
@@ -91,7 +92,7 @@ class AddProcessWizard extends Component {
     //Generalize selects per name
     handleSelectTypeChange = (event, index, value) => {
         let change = this.state
-        change.process.type = value
+        change.definition.type = value
         this.setState(change)
         console.log(this.state)
     }
@@ -99,7 +100,7 @@ class AddProcessWizard extends Component {
     //Generalize selects per name
     handleSelectBAChange = (event, index, value) => {
         let change = this.state
-        change.process.businessArea = value
+        change.definition.businessArea = value
         this.setState(change)
         console.log(this.state)
     }
@@ -107,7 +108,7 @@ class AddProcessWizard extends Component {
     //Generalize selects per name
     handleSelectTempStepTypeChange = (event, index, value) => {
         let change = this.state
-        change.process.tmpStepType = value
+        change.definition.tmpStepType = value
         this.setState(change)
         console.log(this.state)
     }
@@ -142,7 +143,7 @@ class AddProcessWizard extends Component {
 
     handleSaveStepModal = () => {
         //get max order from array step
-        let orderArray = this.state.process.step.map(function(step) {
+        let orderArray = this.state.definition.step.map(function (step) {
             return step.order
         })
         let maxOrder = 0
@@ -154,13 +155,13 @@ class AddProcessWizard extends Component {
         let change = this.state
         let stepToPush = {
             order: maxOrder + 1,
-            type: this.state.process.tmpStepType,
-            name: this.state.process.tmpStepName
+            type: this.state.definition.tmpStepType,
+            name: this.state.definition.tmpStepName
         }
-        change.process.step.push(stepToPush)
+        change.definition.step.push(stepToPush)
         //reset tmps 
-        change.process.tmpStepName = ''
-        change.process.tmpStepType = 1
+        change.definition.tmpStepName = ''
+        change.definition.tmpStepType = 1
     }
 
     handleSaveSupervisorModal = () => {
@@ -169,24 +170,30 @@ class AddProcessWizard extends Component {
         //set state to push step
         let change = this.state
         let supervisorToPush = {
-            name: this.state.process.tmpSupervisorName,
-            description: this.state.process.tmpSupervisorFunc
+            name: this.state.definition.tmpSupervisorName,
+            function: this.state.definition.tmpSupervisorFunc
         }
-        change.process.supervisorTeam.push(supervisorToPush)
+        console.log(supervisorToPush)
+        change.definition.supervisorTeam.push(supervisorToPush)
         //reset tmps 
-        change.process.tmpSupervisorName = ''
-        change.process.tmpSupervisorName = 1
+        change.definition.tmpSupervisorName = ''
+        change.definition.tmpSupervisorFunc = ''
     }
 
     postProcess() {
         console.log('posting process!')
+        let change = this.state
+        change.definition.version = '1.0'
+        change.definition.status = 'Certification'
+        this.setState(change)
+        
         agent.post('http://localhost:3000/api/Processes')
             .send({
-                name: this.state.process.name,
-                definition: this.state.process
+                name: this.state.definition.name,
+                definition: this.state.definition
             })
             .set('Accept', 'application/json')
-            .end(function(err, res) {
+            .end(function (err, res) {
                 if (err || !res.ok) {
                     console.error(err);
                 } else {
@@ -233,7 +240,7 @@ class AddProcessWizard extends Component {
                                 id="name"
                                 hintText="Insert Process Name"
                                 floatingLabelText="Process Name"
-                                value={this.state.process.name}
+                                value={this.state.definition.name}
                                 onChange={this.handleInputChange.bind(this)}
                                 />
                             <br />
@@ -241,7 +248,7 @@ class AddProcessWizard extends Component {
                                 id="description"
                                 hintText="Insert Process Description"
                                 floatingLabelText="Process Description"
-                                value={this.state.process.description}
+                                value={this.state.definition.description}
                                 onChange={this.handleInputChange.bind(this)}
                                 multiLine={true}
                                 rows={2}
@@ -251,7 +258,7 @@ class AddProcessWizard extends Component {
                                 id="businessArea"
                                 style={styles.select}
                                 floatingLabelText="Business Area"
-                                value={this.state.process.businessArea}
+                                value={this.state.definition.businessArea}
                                 onChange={this.handleSelectBAChange}
                                 >
                                 <MenuItem value={'Mortgage'} primaryText="Mortgage" />
@@ -267,10 +274,10 @@ class AddProcessWizard extends Component {
                                 id="type"
                                 style={styles.select}
                                 floatingLabelText="Type"
-                                value={this.state.process.type}
+                                value={this.state.definition.type}
                                 onChange={this.handleSelectTypeChange}
                                 >
-                                <MenuItem value={'Automated'} primaryText="Automated" />
+                                <MenuItem value={'RPA'} primaryText="RPA" />
                                 <MenuItem value={'Sequential'} primaryText="Sequential" />
                                 <MenuItem value={'Case'} primaryText="Case" />
                                 <MenuItem value={'Check'} primaryText="Check" />
@@ -287,17 +294,17 @@ class AddProcessWizard extends Component {
                                 <TableHeader displaySelectAll={false}>
                                     <TableRow>
                                         <TableHeaderColumn>Order</TableHeaderColumn>
-                                        <TableHeaderColumn>Type</TableHeaderColumn>
                                         <TableHeaderColumn>Name</TableHeaderColumn>
+                                        <TableHeaderColumn>Type</TableHeaderColumn>
                                         <TableHeaderColumn>Action</TableHeaderColumn>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody displayRowCheckbox={false} >
-                                    {this.state.process.step.map((row, index) => (
+                                    {this.state.definition.step.map((row, index) => (
                                         <TableRow key={index} selected={row.selected}>
                                             <TableRowColumn>{row.order}</TableRowColumn>
-                                            <TableRowColumn>{row.type}</TableRowColumn>
                                             <TableRowColumn>{row.name}</TableRowColumn>
+                                            <TableRowColumn>{row.type}</TableRowColumn>
                                             <TableRowColumn><FlatButton icon={iconDelete} href="/" /></TableRowColumn>
                                         </TableRow>
                                     ))}
@@ -315,7 +322,7 @@ class AddProcessWizard extends Component {
                                     id="tmpStepName"
                                     hintText="Insert Step Name"
                                     floatingLabelText="Process Step Name"
-                                    value={this.state.process.tmpStepName}
+                                    value={this.state.definition.tmpStepName}
                                     onChange={this.handleInputChange.bind(this)}
                                     />
 
@@ -324,7 +331,7 @@ class AddProcessWizard extends Component {
                                     id="tmpStepType"
                                     style={styles.select}
                                     floatingLabelText="Step type"
-                                    value={this.state.process.tmpStepType}
+                                    value={this.state.definition.tmpStepType}
                                     onChange={this.handleSelectTempStepTypeChange}
                                     >
                                     <MenuItem value={'Type1'} primaryText="Type1" />
@@ -353,7 +360,7 @@ class AddProcessWizard extends Component {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody displayRowCheckbox={false} >
-                                    {this.state.process.supervisorTeam.map((row, index) => (
+                                    {this.state.definition.supervisorTeam.map((row, index) => (
                                         <TableRow key={index} selected={row.selected}>
                                             <TableRowColumn>{row.name}</TableRowColumn>
                                             <TableRowColumn>{row.function}</TableRowColumn>
@@ -398,35 +405,49 @@ class AddProcessWizard extends Component {
                         <Paper zDepth={0} style={styles.paper}>
                             <br />
                             <br />
-                            <Checkbox
-                                id="notifySupervisorOnError"
-                                label="Notify Supervisor on Error"
-                                style={styles.checkbox}
-                                checked={this.state.process.notifySupervisorOnError}
-                                onCheck={this.handleCheckChange.bind(this)}
-                                />
-                            <Checkbox
-                                id="notifySupervisorOnEnd"
-                                label="Notify Supervisor On End"
-                                style={styles.checkbox}
-                                checked={this.state.process.notifySupervisorOnEnd}
-                                onCheck={this.handleCheckChange.bind(this)}
-                                />
 
-                            <Checkbox
-                                id="AssignSupervisorOnError"
-                                label="Assign to Supervisor On Error"
-                                style={styles.checkbox}
-                                checked={this.state.process.AssignSupervisorOnError}
-                                onCheck={this.handleCheckChange.bind(this)}
-                                />
-                            <Checkbox
-                                id="blockProcessExecution"
-                                label="Block Process Execution"
-                                style={styles.checkbox}
-                                checked={this.state.process.blockProcessExecution}
-                                onCheck={this.handleCheckChange.bind(this)}
-                                />
+                            <List>
+                                <ListItem
+                                    leftCheckbox={<Checkbox
+                                        id="notifySupervisorOnError"
+                                        style={styles.checkbox}
+                                        checked={this.state.definition.notifySupervisorOnError}
+                                        onCheck={this.handleCheckChange.bind(this)}
+                                        />}
+                                    primaryText="Notify Supervisor on Error"
+                                    secondaryText="When an error occurs supervisors will be notified via email"
+                                    />
+                                <ListItem
+                                    leftCheckbox={<Checkbox
+                                        id="notifySupervisorOnEnd"
+                                        style={styles.checkbox}
+                                        checked={this.state.definition.notifySupervisorOnEnd}
+                                        onCheck={this.handleCheckChange.bind(this)}
+                                        />}
+                                    primaryText="Notify Supervisor On End"
+                                    secondaryText="When process ends execution supervisors will be notified via email"
+                                    />
+                                <ListItem
+                                    leftCheckbox={<Checkbox
+                                        id="AssignSupervisorOnError"
+                                        style={styles.checkbox}
+                                        checked={this.state.definition.AssignSupervisorOnError}
+                                        onCheck={this.handleCheckChange.bind(this)}
+                                        />}
+                                    primaryText="Assign to Supervisor On Error"
+                                    secondaryText="When an error occurs a task will be delivered to the supervisors"
+                                    />
+                                <ListItem
+                                    leftCheckbox={<Checkbox
+                                        id="blockProcessExecution"
+                                        style={styles.checkbox}
+                                        checked={this.state.definition.blockProcessExecution}
+                                        onCheck={this.handleCheckChange.bind(this)}
+                                        />}
+                                    primaryText="Block Process Execution"
+                                    secondaryText="When an error occurs the process stops executing"
+                                    />
+                            </List>
                             <br />
                             <br />
                         </Paper>

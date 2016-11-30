@@ -14,6 +14,7 @@ import AttachMoney from 'material-ui/svg-icons/editor/attach-money'
 import Extension from 'material-ui/svg-icons/action/extension'
 import Class from 'material-ui/svg-icons/action/class'
 import Accountbalance from 'material-ui/svg-icons/action/account-balance'
+import Accessibility from 'material-ui/svg-icons/action/accessibility'
 
 class ProcessCatalogAppBarLeftIconMenu extends Component {
     constructor(props) {
@@ -22,6 +23,11 @@ class ProcessCatalogAppBarLeftIconMenu extends Component {
     }
 
     handleToggle = () => this.setState({ open: !this.state.open });
+
+    handleClickBusinessArea = (e) => {
+        console.log(e.target.innerHTML)
+        this.setState({ open: false })
+    }
 
     render() {
         return (
@@ -36,8 +42,8 @@ class ProcessCatalogAppBarLeftIconMenu extends Component {
                         open={this.state.open}
                         onRequestChange={(open) => this.setState({ open })}>
                         <List>
-                            <Subheader>Process Catalog</Subheader>
-                            <ListItem primaryText="Mortgage" leftIcon={<Business />} />
+                            <Subheader>Business Areas</Subheader>
+                            <ListItem primaryText="Mortgage" leftIcon={<Business />} onClick={this.handleClickBusinessArea} />
                             <ListItem primaryText="Human Resources" leftIcon={<Supervisor />} />
                             <ListItem primaryText=" Risk & Compliance" leftIcon={<Gavel />} />
                             <ListItem primaryText="Payments & Cards" leftIcon={<LocalATM />} />
@@ -46,6 +52,7 @@ class ProcessCatalogAppBarLeftIconMenu extends Component {
                             <ListItem primaryText="Sales & Service" leftIcon={<AttachMoney />} />
                             <ListItem primaryText="IT Management" leftIcon={<Extension />} />
                             <ListItem primaryText="Loans" leftIcon={<Class />} />
+                            <ListItem primaryText="All" leftIcon={<Accessibility />} />
                         </List>
                     </Drawer>
                 </div>

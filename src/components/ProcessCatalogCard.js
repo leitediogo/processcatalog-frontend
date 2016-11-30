@@ -1,11 +1,28 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardActions, CardHeader, CardTitle, CardText, CardMedia } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
+import agent from 'superagent'
 
-let style = {
-    margin: 20,
-    textAlign: 'center'
+const styles = {
+    block: {
+        maxWidth: 250,
+    },
+    checkbox: {
+        marginBottom: 16,
+    },
+    card: {
+        margin: 20,
+        textAlign: 'center'
+    },
+    paper: {
+        margin: 20,
+        textAlign: 'center'
+    },
+    select: {
+        align: 'left'
+    }
 }
 
 class ProcessCatalogCard extends Component {
@@ -33,11 +50,35 @@ class ProcessCatalogCard extends Component {
         this.setState({ expanded: false });
     };
 
+    handlePublish = () => {
+        this.putProcess(this.props.process.id)
+        window.location.reload()
+    }
+
+    putProcess(id) {
+        console.log('putting process!')
+        this.props.process.definition.status = 'Production'
+        agent.put('http://localhost:3000/api/Processes')
+            .send({
+                id: id,
+                name: this.props.process.name,
+                definition: this.props.process.definition
+            })
+            .set('Accept', 'application/json')
+            .end(function (err, res) {
+                if (err || !res.ok) {
+                    console.error(err);
+                } else {
+                    console.log('yay! process putted ' + JSON.stringify(res.body));
+                }
+            })
+    }
+
     render() {
         return (
             <MuiThemeProvider>
                 <div>
-                    <Card zDepth={1} style={style} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+                    <Card zDepth={1} style={styles.card} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
                         <CardHeader
                             title="Created By"
                             subtitle={this.props.process.definition.createdBy}
@@ -51,10 +92,29 @@ class ProcessCatalogCard extends Component {
                             />
                         <CardText>{this.props.process.definition.cardText}</CardText>
                         <CardMedia expandable={true}>
-                            <p>process data</p>
+                            <div>
+                                <label> <b> Description </b> </label>
+                                <p>{this.props.process.definition.description}</p>
+                                <TextField
+                                    disabled={true}
+                                    defaultValue={this.props.process.definition.version}
+                                    floatingLabelText="Version"
+                                    /><br />
+                                <TextField
+                                    disabled={true}
+                                    defaultValue={this.props.process.definition.status}
+                                    floatingLabelText="Status"
+                                    /><br />
+
+                                <TextField
+                                    disabled={true}
+                                    defaultValue={this.props.process.definition.type}
+                                    floatingLabelText="Type"
+                                    /><br />
+                            </div>
                         </CardMedia>
                         <CardActions expandable={true}>
-                            <FlatButton label="Save" onClick={this.handleReduce}  disabled={true} />
+                            <FlatButton label="Publish" onClick={this.handlePublish} />
                             <FlatButton label="Edit" onClick={this.handleExpand} />
                         </CardActions>
 

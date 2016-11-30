@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import ProcessCatalogAppBarRightIconMenu from './ProcessCatalogAppBarRightIconMenu'
 import ProcessCatalogAppBarLeftIconMenu from './ProcessCatalogAppBarLeftIconMenu'
 
-let style ={
+let style = {
     position: "fixed",
     top: "0px",
     width: "100%"

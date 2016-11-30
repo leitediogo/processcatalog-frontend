@@ -17,13 +17,13 @@ class App extends Component {
             <div>
                 <div>
                     <ProcessCatalogAppBar />
-                </div>
+                
                 <Router history={browserHistory}>
                     <Route path="/" component={ProcessCatalogCardList} />
                     <Route path="/addProcess" component={AddProcessWizard} />
                     <Route path="/icons" component={IconTesting} />
                 </Router>
-                <div>
+                
                     <ProcessCatalogBottomNavigation />
                 </div>
             </div>
