@@ -18,11 +18,11 @@ class ProcessCatalogAppBar extends Component {
                 <div>
                     <AppBar
                         style={style}
-                        title="Process Catalog"
+                        title={"Process Catalog"}
                         iconElementRight={<ProcessCatalogAppBarRightIconMenu />}
-                        iconElementLeft={<ProcessCatalogAppBarLeftIconMenu />}
+                        iconElementLeft={<ProcessCatalogAppBarLeftIconMenu filterProcesses={this.props.filterProcesses}/>}
                         />
-                </div>
+                  </div>
             </MuiThemeProvider>
         )
     }

@@ -470,7 +470,7 @@ class AddProcessWizard extends Component {
                             <StepLabel>Identification</StepLabel>
                         </Step>
                         <Step>
-                            <StepLabel>Sequence</StepLabel>
+                            <StepLabel>Flow</StepLabel>
                         </Step>
                         <Step>
                             <StepLabel>Supervision</StepLabel>

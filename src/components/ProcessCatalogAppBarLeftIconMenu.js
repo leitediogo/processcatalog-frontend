@@ -16,6 +16,8 @@ import Class from 'material-ui/svg-icons/action/class'
 import Accountbalance from 'material-ui/svg-icons/action/account-balance'
 import Accessibility from 'material-ui/svg-icons/action/accessibility'
 
+
+
 class ProcessCatalogAppBarLeftIconMenu extends Component {
     constructor(props) {
         super(props);
@@ -24,8 +26,9 @@ class ProcessCatalogAppBarLeftIconMenu extends Component {
 
     handleToggle = () => this.setState({ open: !this.state.open });
 
-    handleClickBusinessArea = (e) => {
-        console.log(e.target.innerHTML)
+
+    handleClickBusinessArea(businessArea){
+        this.props.filterProcesses(businessArea)
         this.setState({ open: false })
     }
 
@@ -43,16 +46,16 @@ class ProcessCatalogAppBarLeftIconMenu extends Component {
                         onRequestChange={(open) => this.setState({ open })}>
                         <List>
                             <Subheader>Business Areas</Subheader>
-                            <ListItem primaryText="Mortgage" leftIcon={<Business />} onClick={this.handleClickBusinessArea} />
-                            <ListItem primaryText="Human Resources" leftIcon={<Supervisor />} />
-                            <ListItem primaryText=" Risk & Compliance" leftIcon={<Gavel />} />
-                            <ListItem primaryText="Payments & Cards" leftIcon={<LocalATM />} />
-                            <ListItem primaryText="Operations & Execution" leftIcon={<Accountbalance />} />
-                            <ListItem primaryText="Marketing" leftIcon={<InsertChart />} />
-                            <ListItem primaryText="Sales & Service" leftIcon={<AttachMoney />} />
-                            <ListItem primaryText="IT Management" leftIcon={<Extension />} />
-                            <ListItem primaryText="Loans" leftIcon={<Class />} />
-                            <ListItem primaryText="All" leftIcon={<Accessibility />} />
+                            <ListItem primaryText="Mortgage" leftIcon={<Business />} onClick={() => this.handleClickBusinessArea('Mortgage')} />
+                            <ListItem primaryText="Human Resources" leftIcon={<Supervisor />} onClick={() => this.handleClickBusinessArea('Human Resources')}/>
+                            <ListItem primaryText=" Risk and Compliance" leftIcon={<Gavel />} onClick={() => this.handleClickBusinessArea('Risk and Compliance')}/>
+                            <ListItem primaryText="Payments and Cards" leftIcon={<LocalATM />} onClick={() => this.handleClickBusinessArea('Payments and Cards')}/>
+                            <ListItem primaryText="Operations and Execution" leftIcon={<Accountbalance />} onClick={() => this.handleClickBusinessArea('Operations and Execution')}/>
+                            <ListItem primaryText="Marketing" leftIcon={<InsertChart />} onClick={() => this.handleClickBusinessArea('Marketing')}/>
+                            <ListItem primaryText="Sales and Service" leftIcon={<AttachMoney />} onClick={() => this.handleClickBusinessArea('Sales and Service')}/>
+                            <ListItem primaryText="IT Management" leftIcon={<Extension/>} onClick={() => this.handleClickBusinessArea('IT Management')} />
+                            <ListItem primaryText="Loans" leftIcon={<Class />} onClick={() => this.handleClickBusinessArea('Loans')}/>
+                            <ListItem primaryText="All" leftIcon={<Accessibility />} onClick={() => this.handleClickBusinessArea('All')}/>
                         </List>
                     </Drawer>
                 </div>
