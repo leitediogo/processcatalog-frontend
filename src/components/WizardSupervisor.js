@@ -41,13 +41,6 @@ class WizardSupervisor extends Component {
         console.log(this.state)
     }
 
-    handleSelectChange = (event, index, value) => {
-        let change = this.state
-        change.tmpSupervisorFunc = value
-        this.setState(change)
-        console.log(this.state)
-    }
-
     handleOpenModal = () => {
         this.setState({ open: true })
     }
