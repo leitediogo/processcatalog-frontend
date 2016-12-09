@@ -8,20 +8,25 @@ import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Table, TableRow, TableBody, TableRowColumn, TableHeader, TableHeaderColumn } from 'material-ui/Table'
 import IconDelete from 'material-ui/svg-icons/action/delete'
+import IconEdit from 'material-ui/svg-icons/editor/mode-edit'
 import Dialog from 'material-ui/Dialog'
-
-const iconDelete = <IconDelete />
+import IconButton from 'material-ui/IconButton'
+import TimePicker from 'material-ui/TimePicker'
 
 const styles = {
     paper: {
         margin: 20,
         textAlign: 'left',
         display: 'inline-block',
-        width: 500,
+        width: 800,
         height: 300
     },
     select: {
         align: 'left'
+    },
+    smallIcon: {
+        width: 20,
+        height: 20
     }
 }
 
@@ -32,7 +37,9 @@ class WizardFlow extends Component {
         this.state = {
             open: false,
             tmpFlowName: '',
-            tmpFlowType: ''
+            tmpFlowType: '',
+            tmpFlowTimer1: null,
+            tmpFlowTimer2: null
         }
     }
 
@@ -61,11 +68,30 @@ class WizardFlow extends Component {
     handleSendSaveFlow = () => {
         console.log('handleSendSaveFlow')
         //update global state
-        this.props.handleSaveFlow(this.state.tmpFlowName, this.state.tmpFlowType)
+        this.props.handleSaveFlow(this.state.tmpFlowName, this.state.tmpFlowType, this.state.tmpFlowTimer1, this.state.tmpFlowTimer2)
         //close modal
         this.setState({ open: false })
         //reset tmps 
-        this.setState({ tmpFlowName: '', tmpFlowType: '' })
+        this.setState({ tmpFlowName: '', tmpFlowType: '', tmpFlowTimer1: null, tmpFlowTimer2: null })
+    }
+
+    handleDeleteRow = (e) => {
+        console.log(e)
+        console.log(e.target)
+
+    }
+
+    handleEditRow = (e) => {
+        console.log(e)
+        console.log(e.target)
+    }
+
+    handleChangeTimePicker1 = (event, date) => {
+        this.setState({ tmpFlowTimer1: date })
+    }
+
+    handleChangeTimePicker2 = (event, date) => {
+        this.setState({ tmpFlowTimer2: date })
     }
 
     actions = [
@@ -97,7 +123,7 @@ class WizardFlow extends Component {
                                     <TableHeaderColumn>Order</TableHeaderColumn>
                                     <TableHeaderColumn>Name</TableHeaderColumn>
                                     <TableHeaderColumn>Type</TableHeaderColumn>
-                                    <TableHeaderColumn>Action</TableHeaderColumn>
+                                    <TableHeaderColumn>Actions</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
                             <TableBody displayRowCheckbox={false} >
@@ -106,14 +132,21 @@ class WizardFlow extends Component {
                                         <TableRowColumn>{row.order}</TableRowColumn>
                                         <TableRowColumn>{row.name}</TableRowColumn>
                                         <TableRowColumn>{row.type}</TableRowColumn>
-                                        <TableRowColumn><FlatButton icon={iconDelete} href="/" /></TableRowColumn>
+                                        <TableRowColumn>
+                                            <IconButton id="1" tooltip="Delete row" onTouchTap={this.handleDeleteRow.bind(this)} >
+                                                <IconDelete />
+                                            </IconButton>
+                                            <IconButton tooltip="Edit row" onTouchTap={this.handleEditRow.bind(this)} >
+                                                <IconEdit />
+                                            </IconButton>
+                                        </TableRowColumn>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
-                        <RaisedButton label="Add Flow" onTouchTap={this.handleOpenModal} fullWidth={true} />
+                        <RaisedButton label="Add Flow Step" onTouchTap={this.handleOpenModal} fullWidth={true} />
                         <Dialog
-                            title="Add flow"
+                            title="Add flow step"
                             actions={this.actions}
                             modal={false}
                             open={this.state.open}
@@ -121,8 +154,8 @@ class WizardFlow extends Component {
                             >
                             <TextField
                                 id="tmpFlowName"
-                                hintText="Insert Flow Name"
-                                floatingLabelText="Process Flow Name"
+                                hintText="Insert Flow Step Name"
+                                floatingLabelText="Process Flow Step Name"
                                 value={this.state.tmpFlowName}
                                 onChange={this.handleInputChange.bind(this)}
                                 />
@@ -130,19 +163,39 @@ class WizardFlow extends Component {
                             <SelectField
                                 id="tmpFlowType"
                                 style={styles.select}
-                                floatingLabelText="Flow type"
+                                floatingLabelText="Flow Step type"
                                 value={this.state.tmpFlowType}
                                 onChange={this.handleSelectChange.bind(this)}
                                 >
-                                <MenuItem value={'Human Approval'} primaryText="Human Approval" />
-                                <MenuItem value={'Web Scraping'} primaryText="Web Scraping" />
-                                <MenuItem value={'3270 Automation'} primaryText="3270 Automation" />
-                                <MenuItem value={'File Read (Excel)'} primaryText="File Read (Excel)" />
+                                <MenuItem value={'Human Approval Task'} primaryText="Human Approval" />
+                                <MenuItem value={'Extract Web to excel'} primaryText="Extract Web to excel" />
+                                <MenuItem value={'Copy File'} primaryText="Copy File" />
+                                <MenuItem value={'Zip File'} primaryText="Zip File" />
+                                <MenuItem value={'Send Email'} primaryText="Send Email" />
+                                <MenuItem value={'Download from FTP'} primaryText="Download from FTP" />
+                                <MenuItem value={'Populate and submit 3270'} primaryText="Populate and submit 3270" />
+                                <MenuItem value={'Populate and submit webform'} primaryText="Populate and submit webform" />
                                 <MenuItem value={'Get customer by VAT'} primaryText="Get customer by VAT" />
                                 <MenuItem value={'Get accounts by VAT'} primaryText="Get accounts by VAT" />
-                                <MenuItem value={'Block accounts'} primaryText="Block accounts" />
+                                <MenuItem value={'Block accounts by VAT'} primaryText="Block accounts by VAT" />
                             </SelectField>
                             <br />
+                            <TimePicker
+                                id="tmpFlowTimer1"
+                                format="ampm"
+                                hintText="Initial cuttoff hour"
+                                floatingLabelText="Initial cuttoff"
+                                value={this.state.tmpFlowTimer1}
+                                onChange={this.handleChangeTimePicker1}
+                                />
+                            <TimePicker
+                                id="tmpFlowTimer2"
+                                format="ampm"
+                                hintText="Final cuttoff hour"
+                                floatingLabelText="Final cuttoff"
+                                value={this.state.tmpFlowTimer2}
+                                onChange={this.handleChangeTimePicker2}
+                                />
                             <br />
                         </Dialog>
                         <br />

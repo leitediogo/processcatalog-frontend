@@ -15,7 +15,7 @@ const styles = {
         margin: 20,
         textAlign: 'left',
         display: 'inline-block',
-        width: 500,
+        width: 800,
         height: 300
     },
     select: {

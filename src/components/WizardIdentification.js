@@ -11,7 +11,7 @@ const styles = {
         margin: 20,
         textAlign: 'left',
         display: 'inline-block',
-        width: 500,
+        width: 800,
         height: 300
     },
     select: {
@@ -59,6 +59,7 @@ class WizardIdentification extends Component {
                             <MenuItem value={'IT Management'} primaryText="IT Management" />
                             <MenuItem value={'Loans'} primaryText="Loans" />
                         </SelectField>
+                         <br />
                         <SelectField
                             id="type"
                             style={styles.select}
@@ -69,13 +70,14 @@ class WizardIdentification extends Component {
                             <MenuItem value={'RPA'} primaryText="RPA" />
                             <MenuItem value={'Sequential'} primaryText="Sequential" />
                             <MenuItem value={'Case'} primaryText="Case" />
+                            <MenuItem value={'Modeled'} primaryText="Modeled" />
                             <MenuItem value={'Check'} primaryText="Check" />
                         </SelectField>
                         <br />
                     </Paper>
                 </div>
             </MuiThemeProvider>
-        );
+        )
     }
 }
 

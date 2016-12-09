@@ -6,10 +6,12 @@ import ProcessCatalogAppBar from './components/ProcessCatalogAppBar'
 import ProcessCatalogCardList from './components/ProcessCatalogCardList'
 import ProcessCatalogBottomNavigation from './components/ProcessCatalogBottomNavigation'
 import Wizard from './components/Wizard'
+import ProcessCatalogTaskList from './components/ProcessCatalogTaskList'
+import IconTesting from './components/IconTesting'
 
 // Needed for onTouchTap
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
 
 class App extends Component {
 
@@ -24,7 +26,7 @@ class App extends Component {
     componentDidMount() {
         agent.get('http://localhost:3000/api/Processes')
             .then(function(res) {
-                this.setState({ allProcesses: res.body });
+                this.setState({ allProcesses: res.body })
                 this.setState({ filteredProcesses: res.body })
                 console.log(this.state)
             }.bind(this));
@@ -52,17 +54,19 @@ class App extends Component {
         return (
             <div>
                 <div>
-                    <ProcessCatalogAppBar filterProcesses={this.filterProcesses.bind(this)} />
+                    <ProcessCatalogAppBar filterProcesses={this.filterProcesses.bind(this)}/>
                     <Router history={browserHistory}>
                         <Route path="/" component={() => (<ProcessCatalogCardList processes={this.state.filteredProcesses} />)} />
                         <Route path="/addProcess" component={Wizard} />
+                        <Route path="/tasklist" component={ProcessCatalogTaskList} />
+                        <Route path="/icons" component={IconTesting} />
                     </Router>
                     <ProcessCatalogBottomNavigation />
                 </div>
             </div>
-        );
+        )
     }
 }
 
-export default App;
+export default App
 

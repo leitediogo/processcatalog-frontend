@@ -10,6 +10,7 @@ import WizardIdentification from './WizardIdentification'
 import WizardFlow from './WizardFlow'
 import WizardSupervisor from './WizardSupervisor'
 import WizardNotifications from './WizardNotifications'
+import WizardScheduler from './WizardScheduler'
 
 class Wizard extends Component {
 
@@ -30,6 +31,13 @@ class Wizard extends Component {
                 notifySupervisorOnError: false,
                 AssignSupervisorOnError: false,
                 blockProcessExecution: false,
+                isMailTrigger: false,
+                isFileTrigger: false,
+                isIdleTrigger: false,
+                isManualTrigger: false,
+                isPingTrigger: false,
+                isProcessTrigger: false,
+                isTimeElapsedTrigger: false,
                 supervisorTeam: [],
                 flow: [],
                 createdBy: 'Diogo Leite',
@@ -74,7 +82,7 @@ class Wizard extends Component {
         const {stepIndex} = this.state
         this.setState({
             stepIndex: stepIndex + 1,
-            finished: stepIndex >= 3,
+            finished: stepIndex >= 4,
         })
     }
 
@@ -90,7 +98,7 @@ class Wizard extends Component {
         browserHistory.push('/')
     }
 
-    handleSaveFlow(name, type) {
+    handleSaveFlow(name, type, cutoff1, cutoff2) {
         //get max order from array flow
         let orderArray = this.state.definition.flow.map(function (flow) {
             return flow.order
@@ -103,7 +111,9 @@ class Wizard extends Component {
         let stepToPush = {
             order: maxOrder + 1,
             type: type,
-            name: name
+            name: name,
+            cutoff1: cutoff1,
+            cutoff2: cutoff2
         }
         change.definition.flow.push(stepToPush)
         this.setState(change)
@@ -111,16 +121,11 @@ class Wizard extends Component {
 
 
     handleSaveSupervisor(name, func) {
-        console.log('handleSaveSupervisor: ', name)
-        console.log('handleSaveSupervisor: ', func)
-
-        //set state
         let change = this.state
         let supervisorToPush = {
             function: func,
             name: name
         }
-
         change.definition.supervisorTeam.push(supervisorToPush)
         this.setState(change)
     }
@@ -186,6 +191,15 @@ class Wizard extends Component {
                             />
                     </div>
                 )
+            case 4:
+                return (
+                    <div>
+                        <WizardScheduler
+                            definition={this.state.definition}
+                            handleCheckChange={this.handleCheckChange.bind(this)}
+                            />
+                    </div>
+                )
             default:
                 return 'Houston? Wizard has gone to default case.'
         }
@@ -209,7 +223,10 @@ class Wizard extends Component {
                             <StepLabel>Supervision</StepLabel>
                         </Step>
                         <Step>
-                            <StepLabel>Exception Handling</StepLabel>
+                            <StepLabel>Notifications</StepLabel>
+                        </Step>
+                        <Step>
+                            <StepLabel>Scheduler</StepLabel>
                         </Step>
                     </Stepper>
                     <div>
@@ -223,9 +240,9 @@ class Wizard extends Component {
                                     style={{ marginRight: 12 }}
                                     />
                                 <RaisedButton
-                                    label={stepIndex === 3 ? 'Finish' : 'Next'}
+                                    label={stepIndex === 4 ? 'Finish' : 'Next'}
                                     primary={true}
-                                    onTouchTap={stepIndex === 3 ? this.handleFinishWizard : this.handleNextWizard}
+                                    onTouchTap={stepIndex === 4 ? this.handleFinishWizard : this.handleNextWizard}
                                     />
                             </div>
                         </div>
