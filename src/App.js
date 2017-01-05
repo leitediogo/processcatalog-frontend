@@ -6,8 +6,8 @@ import ProcessCatalogAppBar from './components/ProcessCatalogAppBar'
 import ProcessCatalogCardList from './components/ProcessCatalogCardList'
 import ProcessCatalogBottomNavigation from './components/ProcessCatalogBottomNavigation'
 import Wizard from './components/Wizard'
-import ProcessCatalogTaskList from './components/ProcessCatalogTaskList'
 import IconTesting from './components/IconTesting'
+import WizardScheduler from './components/WizardScheduler'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -58,8 +58,8 @@ class App extends Component {
                     <Router history={browserHistory}>
                         <Route path="/" component={() => (<ProcessCatalogCardList processes={this.state.filteredProcesses} />)} />
                         <Route path="/addProcess" component={Wizard} />
-                        <Route path="/tasklist" component={ProcessCatalogTaskList} />
                         <Route path="/icons" component={IconTesting} />
+                        <Route path="/scheduler" component={WizardScheduler} />
                     </Router>
                     <ProcessCatalogBottomNavigation />
                 </div>

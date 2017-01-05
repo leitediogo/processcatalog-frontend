@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Paper from 'material-ui/Paper'
-import { List, ListItem } from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List'
 import Checkbox from 'material-ui/Checkbox'
 
 const styles = {
@@ -31,8 +31,6 @@ class WizardNotifications extends Component {
             <MuiThemeProvider>
                 <div style={styles.block}>
                     <Paper zDepth={0} style={styles.paper}>
-                        <br />
-                        <br />
                         <List>
                             <ListItem
                                 leftCheckbox={<Checkbox

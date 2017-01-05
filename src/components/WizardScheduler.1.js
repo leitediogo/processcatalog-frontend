@@ -3,10 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Paper from 'material-ui/Paper'
 import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 import TextField from 'material-ui/TextField'
-import { GridList, GridTile } from 'material-ui/GridList'
 
 const styles = {
     block: {
@@ -47,32 +44,63 @@ const styles = {
     }
 }
 
+const divStyleRight = {
+    marginRight: 20,
+    paddingTop: 10,
+    float: 'right'
+}
+
+const divStyleLeft = {
+}
+
 class WizardScheduler extends Component {
-    
+
     render() {
         return (
             <MuiThemeProvider>
                 <div style={styles.block}>
                     <Paper zDepth={0} style={styles.paper}>
-                        <br />
-                        <br />
                         <List>
-                            <ListItem
-                                leftCheckbox={<Checkbox
-                                    id="isMailTrigger"
-                                    style={styles.checkbox}
-                                    checked={this.props.definition.isMailTrigger}
-                                    onCheck={this.props.handleCheckChange}
-                                    />}
-                                primaryText="Email monitor trigger"
-                                secondaryText="When specific email arrives"
-                                />
+                            <div style={divStyleLeft}>
+                                <ListItem
+                                    leftCheckbox={<Checkbox
+                                        id="isMailTrigger"
+                                        style={styles.checkbox}
+                                        //checked={this.props.definition.isMailTrigger}
+                                        //onCheck={this.props.handleCheckChange}
+                                        />}
+                                    primaryText="Email monitor trigger"
+                                    secondaryText="When specific email arrives"
+                                    />
+                            </div>
+                            <div style={divStyleRight}>
+
+                                <TextField
+                                    id="name"
+                                    hintText="Insert Process Name"
+                                    floatingLabelText="Process Name"
+                                    //value={this.props.definition.name}
+                                    //onChange={this.props.handleDefinitionInputChange}
+                                    />
+                                <br />
+                                <TextField
+                                    id="description"
+                                    hintText="Insert Process Description"
+                                    floatingLabelText="Process Description"
+                                    //value={this.props.definition.description}
+                                    //onChange={this.props.handleDefinitionInputChange}
+                                    multiLine={true}
+                                    rows={2}
+                                    />
+                                <br />
+
+                            </div>
                             <ListItem
                                 leftCheckbox={<Checkbox
                                     id="isFileTrigger"
                                     style={styles.checkbox}
-                                    checked={this.props.definition.isFileTrigger}
-                                    onCheck={this.props.handleCheckChange}
+                                    //checked={this.props.definition.isFileTrigger}
+                                    //onCheck={this.props.handleCheckChange}
                                     />}
                                 primaryText="File monitor trigger"
                                 secondaryText="When file exists in specified folder"
@@ -81,8 +109,8 @@ class WizardScheduler extends Component {
                                 leftCheckbox={<Checkbox
                                     id="isIdleTrigger"
                                     style={styles.checkbox}
-                                    checked={this.props.definition.isIdleTrigger}
-                                    onCheck={this.props.handleCheckChange}
+                                    //checked={this.props.definition.isIdleTrigger}
+                                    //onCheck={this.props.handleCheckChange}
                                     />}
                                 primaryText="Idle monitor trigger"
                                 secondaryText="When user is inactive over a specified period of time"
@@ -91,8 +119,8 @@ class WizardScheduler extends Component {
                                 leftCheckbox={<Checkbox
                                     id="isManualTrigger"
                                     style={styles.checkbox}
-                                    checked={this.props.definition.isManualTrigger}
-                                    onCheck={this.props.handleCheckChange}
+                                    //checked={this.props.definition.isManualTrigger}
+                                    //onCheck={this.props.handleCheckChange}
                                     />}
                                 primaryText="Manual trigger"
                                 secondaryText="When user starts the process"
@@ -101,8 +129,8 @@ class WizardScheduler extends Component {
                                 leftCheckbox={<Checkbox
                                     id="isPingTrigger"
                                     style={styles.checkbox}
-                                    checked={this.props.definition.isPingTrigger}
-                                    onCheck={this.props.handleCheckChange}
+                                    //checked={this.props.definition.isPingTrigger}
+                                    //onCheck={this.props.handleCheckChange}
                                     />}
                                 primaryText="Ping trigger"
                                 secondaryText="When machine fails to answer"
@@ -111,8 +139,8 @@ class WizardScheduler extends Component {
                                 leftCheckbox={<Checkbox
                                     id="isProcessTrigger"
                                     style={styles.checkbox}
-                                    checked={this.props.definition.isProcessTrigger}
-                                    onCheck={this.props.handleCheckChange}
+                                    //checked={this.props.definition.isProcessTrigger}
+                                    //onCheck={this.props.handleCheckChange}
                                     />}
                                 primaryText="Process trigger"
                                 secondaryText="When specified process starts or ends"
@@ -121,60 +149,19 @@ class WizardScheduler extends Component {
                                 leftCheckbox={<Checkbox
                                     id="isTimeElapsedTrigger"
                                     style={styles.checkbox}
-                                    checked={this.props.definition.isTimeElapsedTrigger}
-                                    onCheck={this.props.handleCheckChange}
+                                    //checked={this.props.definition.isTimeElapsedTrigger}
+                                    //onCheck={this.props.handleCheckChange}
                                     />}
                                 primaryText="Time Elapsed trigger"
                                 secondaryText="When specified time arrives"
                                 />
+                            <br />
+                            <br />
                         </List>
-
-                        <div>
-                            <div>
-                                <Paper style={styles.nestedPaper} zDepth={3}>
-                                    <List>
-                                        <ListItem
-                                            leftCheckbox={<Checkbox
-                                                id="isTimeElapsedTrigger"
-                                                style={styles.checkbox}
-                                                checked={this.props.definition.isTimeElapsedTrigger}
-                                                onCheck={this.props.handleCheckChange}
-                                                />}
-                                            primaryText="Time Elapsed trigger"
-                                            secondaryText="When specified time arrives"
-                                            />
-                                    </List>
-                                </Paper>
-                                <Paper style={styles.nestedPaperHidden} zDepth={3}>
-                                    <List>
-                                        <ListItem
-                                            primaryText="Time Elapsed trigger"
-                                            secondaryText="When specified time arrives"
-                                            >a
-                                            </ListItem>
-                                    </List>
-                                </Paper>
-                                <br />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <br />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <br />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <br />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <Paper style={styles.nestedPaper} zDepth={3} />
-                                <br />
-                            </div>
-                        </div>
-                        <br />
-                        <br />
                     </Paper>
                 </div>
             </MuiThemeProvider>
-        );
+        )
     }
 }
 

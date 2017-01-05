@@ -31,13 +31,7 @@ class Wizard extends Component {
                 notifySupervisorOnError: false,
                 AssignSupervisorOnError: false,
                 blockProcessExecution: false,
-                isMailTrigger: false,
-                isFileTrigger: false,
-                isIdleTrigger: false,
-                isManualTrigger: false,
-                isPingTrigger: false,
-                isProcessTrigger: false,
-                isTimeElapsedTrigger: false,
+                scheduleType:'',
                 supervisorTeam: [],
                 flow: [],
                 createdBy: 'Diogo Leite',
@@ -74,6 +68,14 @@ class Wizard extends Component {
     handleDefinitionBusinessAreaChange = (event, index, value) => {
         let change = this.state
         change.definition.businessArea = value
+        this.setState(change)
+        console.log(this.state)
+    }
+
+        //TODO: Generalize selects per name
+    handleDefinitionScheduleTypeChange = (event, index, value) => {
+        let change = this.state
+        change.definition.scheduleType = value
         this.setState(change)
         console.log(this.state)
     }
@@ -196,7 +198,7 @@ class Wizard extends Component {
                     <div>
                         <WizardScheduler
                             definition={this.state.definition}
-                            handleCheckChange={this.handleCheckChange.bind(this)}
+                            handleDefinitionScheduleTypeChange={this.handleDefinitionScheduleTypeChange.bind(this)}
                             />
                     </div>
                 )
@@ -207,7 +209,6 @@ class Wizard extends Component {
 
     render() {
         const {stepIndex} = this.state
-
         return (
             <MuiThemeProvider>
                 <div style={{ width: '100%', maxWidth: 700, margin: 'auto' }}>
@@ -223,10 +224,10 @@ class Wizard extends Component {
                             <StepLabel>Supervision</StepLabel>
                         </Step>
                         <Step>
-                            <StepLabel>Notifications</StepLabel>
+                            <StepLabel>Exception Handling</StepLabel>
                         </Step>
                         <Step>
-                            <StepLabel>Scheduler</StepLabel>
+                            <StepLabel>Trigger</StepLabel>
                         </Step>
                     </Stepper>
                     <div>
