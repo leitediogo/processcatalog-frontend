@@ -13,6 +13,9 @@ import WizardScheduler from './components/WizardScheduler'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
+const api_server_name=process.env.REACT_APP_API_SERVER_NAME
+const api_server_port=process.env.REACT_APP_API_SERVER_PORT
+
 class App extends Component {
 
     constructor() {
@@ -24,7 +27,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        agent.get('http://localhost:3000/api/Processes')
+        agent.get('http://'+ api_server_name +':' + api_server_port + '/api/Processes')
             .then(function(res) {
                 this.setState({ allProcesses: res.body })
                 this.setState({ filteredProcesses: res.body })

@@ -75,6 +75,8 @@ class WizardIdentification extends Component {
                         </SelectField>
                         <br />
                     </Paper>
+                    <br />
+                    <br />
                 </div>
             </MuiThemeProvider>
         )

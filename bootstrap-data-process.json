@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Travel and Expenses ",
+    "definition": {
+      "name": "Travel and Expenses ",
+      "description": "Travel and Expenses Description",
+      "businessArea": "Human Resources",
+      "type": "Sequential",
+      "help": "",
+      "status": "Certification",
+      "version": "1.0",
+      "notifySupervisorOnEnd": false,
+      "notifySupervisorOnError": false,
+      "AssignSupervisorOnError": false,
+      "blockProcessExecution": false,
+      "scheduleType": "",
+      "supervisorTeam": [],
+      "flow": [],
+      "createdBy": "Diogo Leite"
+    },
+    "id": 1
+  },
+  {
+    "name": "New Hiring",
+    "definition": {
+      "name": "New Hiring",
+      "description": "Employee Hiring",
+      "businessArea": "Human Resources",
+      "type": "Sequential",
+      "help": "",
+      "status": "Certification",
+      "version": "1.0",
+      "notifySupervisorOnEnd": false,
+      "notifySupervisorOnError": false,
+      "AssignSupervisorOnError": false,
+      "blockProcessExecution": false,
+      "scheduleType": "",
+      "supervisorTeam": [],
+      "flow": [],
+      "createdBy": "Diogo Leite"
+    },
+    "id": 2
+  },
+  {
+    "name": "Product Design",
+    "definition": {
+      "name": "Product Design",
+      "description": "Product Design\nDescription",
+      "businessArea": "Marketing",
+      "type": "Sequential",
+      "help": "",
+      "status": "Certification",
+      "version": "1.0",
+      "notifySupervisorOnEnd": false,
+      "notifySupervisorOnError": false,
+      "AssignSupervisorOnError": false,
+      "blockProcessExecution": false,
+      "scheduleType": "",
+      "supervisorTeam": [],
+      "flow": [],
+      "createdBy": "Diogo Leite"
+    },
+    "id": 3
+  },
+  {
+    "name": "Card Request",
+    "definition": {
+      "name": "Card Request",
+      "description": "Card Request\nDescription",
+      "businessArea": "Operations and Execution",
+      "type": "Sequential",
+      "help": "",
+      "status": "Certification",
+      "version": "1.0",
+      "notifySupervisorOnEnd": false,
+      "notifySupervisorOnError": false,
+      "AssignSupervisorOnError": false,
+      "blockProcessExecution": false,
+      "scheduleType": "",
+      "supervisorTeam": [],
+      "flow": [],
+      "createdBy": "Diogo Leite"
+    },
+    "id": 4
+  },
+  {
+    "name": "Loan Processing",
+    "definition": {
+      "name": "Loan Processing",
+      "description": "Loan Processing\nDescription",
+      "businessArea": "Loans",
+      "type": "Sequential",
+      "help": "",
+      "status": "Certification",
+      "version": "1.0",
+      "notifySupervisorOnEnd": false,
+      "notifySupervisorOnError": false,
+      "AssignSupervisorOnError": false,
+      "blockProcessExecution": false,
+      "scheduleType": "",
+      "supervisorTeam": [],
+      "flow": [],
+      "createdBy": "Diogo Leite"
+    },
+    "id": 5
+  }
+]
