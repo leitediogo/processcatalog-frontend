@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import agent from 'superagent'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -11,6 +12,9 @@ import WizardFlow from './WizardFlow'
 import WizardSupervisor from './WizardSupervisor'
 import WizardNotifications from './WizardNotifications'
 import WizardScheduler from './WizardScheduler'
+
+const api_server_name=process.env.REACT_APP_API_SERVER_NAME
+const api_server_port=process.env.REACT_APP_API_SERVER_PORT
 
 class Wizard extends Component {
 
@@ -138,7 +142,7 @@ class Wizard extends Component {
         change.definition.version = '1.0'
         change.definition.status = 'Certification'
         this.setState(change)
-        agent.post('http://localhost:3000/api/Processes')
+        agent.post('http://'+ api_server_name + ':' + api_server_port + '/api/Processes')
             .send({
                 name: this.state.definition.name,
                 definition: this.state.definition

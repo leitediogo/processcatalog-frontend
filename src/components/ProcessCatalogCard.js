@@ -25,6 +25,9 @@ const styles = {
     }
 }
 
+const api_server_name=process.env.REACT_APP_API_SERVER_NAME
+const api_server_port=process.env.REACT_APP_API_SERVER_PORT
+
 class ProcessCatalogCard extends Component {
 
     constructor(props) {
@@ -58,7 +61,7 @@ class ProcessCatalogCard extends Component {
     putProcess(id) {
         console.log('putting process!')
         this.props.process.definition.status = 'Production'
-        agent.put('http://localhost:3000/api/Processes')
+        agent.put('http://' +  api_server_name + ':' + api_server_port + '/api/Processes')
             .send({
                 id: id,
                 name: this.props.process.name,
