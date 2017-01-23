@@ -3,37 +3,43 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import ProcessCatalogAppBarRightIconMenu from './ProcessCatalogAppBarRightIconMenu'
 import ProcessCatalogAppBarLeftIconMenu from './ProcessCatalogAppBarLeftIconMenu'
-import {browserHistory} from 'react-router'
+import { browserHistory } from 'react-router'
+import { connectProfile } from '../auth'
+import FlatButton from 'material-ui/FlatButton'
+import { login } from '../auth'
 
 const styles = {
-  title: {
-    cursor: 'pointer'
-  }
+    title: {
+        cursor: 'pointer'
+    },
+    bar: {
+        backgroundColor: 'black'
+    }
 }
 
 class ProcessCatalogAppBar extends Component {
 
-    handleAppBarClick(){
+    handleAppBarClick() {
         console.log('handleAppBarClick')
-         browserHistory.push('/')
+        browserHistory.push('/')
     }
 
     render() {
+        const {profile} = this.props
         return (
             <MuiThemeProvider>
                 <div>
                     <AppBar
                         title={<span style={styles.title}>Process Catalog</span>}
+                        style={styles.bar}
                         onTitleTouchTap={this.handleAppBarClick}
-                        iconElementRight={<ProcessCatalogAppBarRightIconMenu />}
-                        iconElementLeft={<ProcessCatalogAppBarLeftIconMenu 
-                        filterProcesses={this.props.filterProcesses}
-                        />}
+                        iconElementRight={(profile) ? <ProcessCatalogAppBarRightIconMenu /> : <FlatButton label="Login" onClick={() => { login() } } />}
+                        iconElementLeft={<ProcessCatalogAppBarLeftIconMenu filterProcesses={this.props.filterProcesses} />}
                         />
-                  </div>
+                </div>
             </MuiThemeProvider>
         )
     }
 }
 
-export default ProcessCatalogAppBar
+export default connectProfile(ProcessCatalogAppBar)

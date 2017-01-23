@@ -30,7 +30,6 @@ const styles = {
     }
 }
 
-
 class WizardFlow extends Component {
     constructor(props, context) {
         super(props, context)

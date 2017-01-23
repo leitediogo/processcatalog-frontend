@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
-
-import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications'
+import { connectProfile, logout } from '../auth'
+import Avatar from 'material-ui/Avatar'
 
 class ProcessCatalogAppBarRightIconMenu extends Component {
-    constructor() {
-        super()
-        this.state = { ProcessCatalog: '', ProcessCatalogList: [] }
-    }
+
     render() {
+        const {profile} = this.props
         return (
             <MuiThemeProvider>
                 <div>
@@ -20,13 +18,13 @@ class ProcessCatalogAppBarRightIconMenu extends Component {
                         <NotificationsIcon />
                     </IconButton>
                     <IconMenu
-                        iconButtonElement={<IconButton><MoreVertIcon color='white' /></IconButton>}
+                       iconButtonElement={<IconButton><Avatar src={profile.picture} size={30}/></IconButton>}
                         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                         >
-                        <MenuItem primaryText="Settings" />
+                        <MenuItem primaryText="Settings" href="/profile/edit"/>
                         <MenuItem primaryText="Help" />
-                        <MenuItem primaryText="Sign out" />
+                        <MenuItem primaryText="Sign out" onClick={()=>{logout()}}/>
                     </IconMenu>
                 </div>
             </MuiThemeProvider>
@@ -34,4 +32,4 @@ class ProcessCatalogAppBarRightIconMenu extends Component {
     }
 
 }
-export default ProcessCatalogAppBarRightIconMenu
+export default connectProfile(ProcessCatalogAppBarRightIconMenu)

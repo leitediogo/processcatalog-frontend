@@ -3,6 +3,7 @@ import { Component } from 'react'
 import ProcessCatalogCard from './ProcessCatalogCard'
 import avatar from '../images/avatar.jpg'
 import ProcessCatalogAddFloatingButton from './ProcessCatalogAddFloatingButton'
+import { connectProfile } from '../auth'
 
 let style = {
     margin: 20,
@@ -12,6 +13,7 @@ let style = {
 class ProcessCatalogCardList extends Component {
 
     render() {
+        const {profile} = this.props
         let cards = [];
         for (var i = 0; i < this.props.processes.length; i++) {
             cards.push(
@@ -24,7 +26,7 @@ class ProcessCatalogCardList extends Component {
                 <br />
                 <br />
                 <div style={style}>{cards}</div>
-                <ProcessCatalogAddFloatingButton />
+                {(profile) ? <ProcessCatalogAddFloatingButton /> : ''}
                 <br />
                 <br />
                 <br />
@@ -33,4 +35,4 @@ class ProcessCatalogCardList extends Component {
     }
 }
 
-export default ProcessCatalogCardList
+export default connectProfile(ProcessCatalogCardList)
