@@ -15,6 +15,7 @@ injectTapEventPlugin()
 
 const api_server_name = process.env.REACT_APP_API_SERVER_NAME
 const api_server_port = process.env.REACT_APP_API_SERVER_PORT
+let bafilter = 'All' //filtered by on screen
 
 class App extends Component {
 
@@ -37,6 +38,7 @@ class App extends Component {
 
     filterProcesses(filter) {
         console.log('Process Filter: ', filter)
+        bafilter = filter //set filtered by on screen
         if (filter !== "All") {
             this.setState({
                 filteredProcesses: this.state.allProcesses.filter(function (process) {
@@ -58,6 +60,7 @@ class App extends Component {
             <div>
                 <div>
                     <ProcessCatalogAppBar filterProcesses={this.filterProcesses.bind(this)} />
+                    <b>filtered by {bafilter}</b>
                     <Router history={browserHistory}>
                         <Route path="/" component={() => (<ProcessCatalogCardList processes={this.state.filteredProcesses} />)} />
                         {/* Testing Routes */}

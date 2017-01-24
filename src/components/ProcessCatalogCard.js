@@ -27,6 +27,7 @@ const styles = {
 
 const api_server_name=process.env.REACT_APP_API_SERVER_NAME
 const api_server_port=process.env.REACT_APP_API_SERVER_PORT
+let publishLabel = "Publish"
 
 class ProcessCatalogCard extends Component {
 
@@ -54,13 +55,14 @@ class ProcessCatalogCard extends Component {
     };
 
     handlePublish = () => {
+        this.props.process.definition.status = 'Production'
         this.putProcess(this.props.process.id)
+        publishLabel = "Unpublish"
         window.location.reload()
     }
 
     putProcess(id) {
         console.log('putting process!')
-        this.props.process.definition.status = 'Production'
         agent.put('http://' +  api_server_name + ':' + api_server_port + '/api/Processes')
             .send({
                 id: id,
@@ -117,7 +119,7 @@ class ProcessCatalogCard extends Component {
                             </div>
                         </CardMedia>
                         <CardActions expandable={true}>
-                            <FlatButton label="Publish" onClick={this.handlePublish} />
+                            <FlatButton label={publishLabel} onClick={this.handlePublish} />
                             <FlatButton label="Edit" onClick={this.handleExpand} />
                         </CardActions>
 
