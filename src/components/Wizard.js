@@ -12,6 +12,7 @@ import WizardFlow from './WizardFlow'
 import WizardSupervisor from './WizardSupervisor'
 import WizardNotifications from './WizardNotifications'
 import WizardScheduler from './WizardScheduler'
+import { connectProfile } from '../auth'
 
 const api_server_name=process.env.REACT_APP_API_SERVER_NAME
 const api_server_port=process.env.REACT_APP_API_SERVER_PORT
@@ -20,6 +21,7 @@ class Wizard extends Component {
 
     constructor(props, context) {
         super(props, context)
+        const {profile} = this.props
         this.state = {
             finished: false,
             stepIndex: 0,
@@ -29,8 +31,8 @@ class Wizard extends Component {
                 businessArea: '',
                 type: '',
                 help: '',
-                status: 'Parametrization',
-                version: '1.0',
+                status: 'Parametrization', //Initial status
+                version: '1.0', //Initial version
                 notifySupervisorOnEnd: false,
                 notifySupervisorOnError: false,
                 AssignSupervisorOnError: false,
@@ -38,7 +40,8 @@ class Wizard extends Component {
                 scheduleType:'',
                 supervisorTeam: [],
                 flow: [],
-                createdBy: 'Diogo Leite',
+                createdBy: profile.name,
+                createdByAvatar: profile.picture
             }
         }
     }
@@ -102,6 +105,7 @@ class Wizard extends Component {
     handleFinishWizard = () => {
         this.postProcess()
         browserHistory.push('/')
+        window.location.reload()
     }
 
     handleSaveFlow(name, type, cutoff1, cutoff2) {
@@ -129,7 +133,7 @@ class Wizard extends Component {
     handleSaveSupervisor(name, func) {
         let change = this.state
         let supervisorToPush = {
-            function: func,
+            funtion: func,
             name: name
         }
         change.definition.supervisorTeam.push(supervisorToPush)
@@ -215,7 +219,7 @@ class Wizard extends Component {
         const {stepIndex} = this.state
         return (
             <MuiThemeProvider>
-                <div style={{ width: '100%', maxWidth: 700, margin: 'auto' }}>
+                <div style={{ width: '100%', maxWidth: 700, margin: 'auto'}} >
                     <br /><br /><br />
                     <Stepper activeStep={stepIndex}>
                         <Step>
@@ -258,4 +262,4 @@ class Wizard extends Component {
     }
 }
 
-export default Wizard;
+export default connectProfile(Wizard)

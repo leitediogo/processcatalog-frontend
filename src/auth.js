@@ -3,7 +3,7 @@ import { EventEmitter } from 'events'
 import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import Auth0Lock from 'auth0-lock'
-import flower from './images/flower-icon.png'
+import knife from './images/swiss-army-knife.png'
 
 const NEXT_PATH_KEY = 'next_path';
 const ID_TOKEN_KEY = 'id_token';
@@ -24,11 +24,11 @@ const lock = new Auth0Lock(
       responseType: 'token'
     },
     theme: {
-      logo: flower,
-      primaryColor: 'lightGrey'
+      logo: knife,
+      primaryColor: 'black'
     },
     languageDictionary: {
-      title: "Flower Login"
+      title: "Process Catalog Login"
     }
   }
 );

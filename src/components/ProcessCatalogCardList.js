@@ -1,7 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
 import ProcessCatalogCard from './ProcessCatalogCard'
-import avatar from '../images/avatar.jpg'
 import ProcessCatalogAddFloatingButton from './ProcessCatalogAddFloatingButton'
 import { connectProfile } from '../auth'
 
@@ -17,7 +16,7 @@ class ProcessCatalogCardList extends Component {
         let cards = [];
         for (var i = 0; i < this.props.processes.length; i++) {
             cards.push(
-                <ProcessCatalogCard process={this.props.processes[i]} avatar={avatar} key={i} />
+                <ProcessCatalogCard process={this.props.processes[i]} key={i} />
             )
         }
         return (

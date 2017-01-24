@@ -10,10 +10,12 @@ const recentsIcon = <IconRecents />
 const favoritesIcon = <IconFavorites />
 const myProcessesIcon = <AccountCircle />
 
-let style ={
-    position: "fixed",
-    bottom: "0px",
-    width: "100%"
+const styles = {
+    bottomStyle: {
+        position: "fixed",
+        bottom: "0px",
+        width: "100%",
+    }
 }
 
 class ProcessCatalogBottomNavigation extends Component {
@@ -21,12 +23,14 @@ class ProcessCatalogBottomNavigation extends Component {
         selectedIndex: 0,
     }
 
-    select = (index) => this.setState({ selectedIndex: index })
+    select = (index) => {
+            this.setState({ selectedIndex: index })
+        }
 
     render() {
         return (
             <MuiThemeProvider>
-                <div style={style}>
+                <div style={styles.bottomStyle}>
                     <Paper zDepth={1}>
                         <BottomNavigation selectedIndex={this.state.selectedIndex}>
                             <BottomNavigationItem

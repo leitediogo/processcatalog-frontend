@@ -85,7 +85,7 @@ class ProcessCatalogCard extends Component {
                         <CardHeader
                             title="Created By"
                             subtitle={this.props.process.definition.createdBy}
-                            avatar={this.props.avatar}
+                            avatar={this.props.process.definition.createdByAvatar}
                             actAsExpander={true}
                             showExpandableButton={true}
                             />
