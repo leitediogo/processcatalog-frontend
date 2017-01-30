@@ -4,6 +4,7 @@ import { Card, CardActions, CardHeader, CardTitle, CardText, CardMedia } from 'm
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import agent from 'superagent'
+import { browserHistory } from 'react-router'
 
 const styles = {
     block: {
@@ -25,9 +26,8 @@ const styles = {
     }
 }
 
-const api_server_name=process.env.REACT_APP_API_SERVER_NAME
-const api_server_port=process.env.REACT_APP_API_SERVER_PORT
-let publishLabel = "Publish"
+const api_server_name = process.env.REACT_APP_API_SERVER_NAME
+const api_server_port = process.env.REACT_APP_API_SERVER_PORT
 
 class ProcessCatalogCard extends Component {
 
@@ -35,6 +35,8 @@ class ProcessCatalogCard extends Component {
         super(props);
         this.state = {
             expanded: false,
+            publishLabel: 'Publish',
+            status: this.props.process.definition.status
         };
     }
 
@@ -54,16 +56,30 @@ class ProcessCatalogCard extends Component {
         this.setState({ expanded: false });
     };
 
+    handleEdit = () => {
+        console.log('edit')
+        browserHistory.push({
+            pathname: '/editProcess',
+            //search: '?process=' + this.props.process.name,
+            state: { process: this.props.process.definition }
+        })
+    }
+
     handlePublish = () => {
-        this.props.process.definition.status = 'Production'
-        this.putProcess(this.props.process.id)
-        publishLabel = "Unpublish"
-        window.location.reload()
+        if (this.props.process.definition.status === 'Certification') {
+            this.props.process.definition.status = 'Production'
+            this.putProcess(this.props.process.id)
+            this.setState({ publishLabel: 'Unpublish', status: 'Production' })
+        } else if (this.props.process.definition.status === 'Production') {
+            this.props.process.definition.status = 'Certification'
+            this.putProcess(this.props.process.id)
+            this.setState({ publishLabel: 'Publish', status: 'Certification' })
+        }
     }
 
     putProcess(id) {
         console.log('putting process!')
-        agent.put('http://' +  api_server_name + ':' + api_server_port + '/api/Processes')
+        agent.put('http://' + api_server_name + ':' + api_server_port + '/api/Processes')
             .send({
                 id: id,
                 name: this.props.process.name,
@@ -107,7 +123,7 @@ class ProcessCatalogCard extends Component {
                                     /><br />
                                 <TextField
                                     disabled={true}
-                                    defaultValue={this.props.process.definition.status}
+                                    value={this.state.status}
                                     floatingLabelText="Status"
                                     /><br />
 
@@ -119,8 +135,8 @@ class ProcessCatalogCard extends Component {
                             </div>
                         </CardMedia>
                         <CardActions expandable={true}>
-                            <FlatButton label={publishLabel} onClick={this.handlePublish} />
-                            <FlatButton label="Edit" onClick={this.handleExpand} />
+                            <FlatButton label={this.state.publishLabel} onClick={this.handlePublish} />
+                            <FlatButton label="Edit" onClick={this.handleEdit} />
                         </CardActions>
 
                     </Card>

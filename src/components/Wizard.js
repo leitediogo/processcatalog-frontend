@@ -14,6 +14,13 @@ import WizardNotifications from './WizardNotifications'
 import WizardScheduler from './WizardScheduler'
 import { connectProfile } from '../auth'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: 'black',
+  }
+});
+
 const api_server_name=process.env.REACT_APP_API_SERVER_NAME
 const api_server_port=process.env.REACT_APP_API_SERVER_PORT
 
@@ -38,6 +45,7 @@ class Wizard extends Component {
                 AssignSupervisorOnError: false,
                 blockProcessExecution: false,
                 scheduleType:'',
+                scheduleMailServer: '',
                 supervisorTeam: [],
                 flow: [],
                 createdBy: profile.name,
@@ -46,7 +54,7 @@ class Wizard extends Component {
         }
     }
 
-    handleDefinitionInputChange = (e) => {
+    handleInputChange = (e) => {
         let change = this.state
         change.definition[e.target.id] = e.target.value
         this.setState(change)
@@ -168,7 +176,7 @@ class Wizard extends Component {
                     <div>
                         <WizardIdentification
                             definition={this.state.definition}
-                            handleDefinitionInputChange={this.handleDefinitionInputChange.bind(this)}
+                            handleInputChange={this.handleInputChange.bind(this)}
                             handleDefinitionBusinessAreaChange={this.handleDefinitionBusinessAreaChange.bind(this)}
                             handleDefinitionTypeChange={this.handleDefinitionTypeChange.bind(this)}
                             />
@@ -218,7 +226,7 @@ class Wizard extends Component {
     render() {
         const {stepIndex} = this.state
         return (
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={{ width: '100%', maxWidth: 700, margin: 'auto'}} >
                     <br /><br /><br />
                     <Stepper activeStep={stepIndex}>

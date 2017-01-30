@@ -5,12 +5,14 @@ const style = {
     width: 50
 }
 
+
+
 class TriggerSectionEmail extends Component {
     render() {
         return (
             <div>
                 <TextField
-                    id="server"
+                    id="mailServer"
                     hintText="Insert Server"
                     floatingLabelText="Server"
                     />

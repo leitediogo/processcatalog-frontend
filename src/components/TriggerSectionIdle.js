@@ -14,7 +14,6 @@ class TriggerSectionIdle extends Component {
                     style={style}
                     /> Mins
                 <br />
-
                 <br />
             </div>
         );

@@ -5,9 +5,10 @@ import ProcessCatalogAppBar from './ProcessCatalogAppBar'
 import ProcessCatalogCardList from './ProcessCatalogCardList'
 import ProcessCatalogBottomNavigation from './ProcessCatalogBottomNavigation'
 import Wizard from './Wizard'
-import IconTesting from './IconTesting'
+import TestIcons from './TestIcons'
 import EditProfile from './EditProfile'
 import { requireAuth } from '../auth'
+import ProcessCatalogEdit from './ProcessCatalogEdit'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -15,7 +16,7 @@ injectTapEventPlugin()
 
 const api_server_name = process.env.REACT_APP_API_SERVER_NAME
 const api_server_port = process.env.REACT_APP_API_SERVER_PORT
-let bafilter = 'All' //filtered by on screen
+let business_area_filter = 'All' //filtered by on screen
 
 class App extends Component {
 
@@ -25,6 +26,7 @@ class App extends Component {
             filteredProcesses: [],
             allProcesses: []
         }
+        this.filterProcesses = this.filterProcesses.bind(this)
     }
 
     componentDidMount() {
@@ -38,7 +40,7 @@ class App extends Component {
 
     filterProcesses(filter) {
         console.log('Process Filter: ', filter)
-        bafilter = filter //set filtered by on screen
+        business_area_filter = filter //set filtered by on screen
         if (filter !== "All") {
             this.setState({
                 filteredProcesses: this.state.allProcesses.filter(function (process) {
@@ -59,17 +61,18 @@ class App extends Component {
         return (
             <div>
                 <div>
-                    <ProcessCatalogAppBar filterProcesses={this.filterProcesses.bind(this)} />
-                    <b>filtered by {bafilter}</b>
+                    <ProcessCatalogAppBar filterProcesses={this.filterProcesses} />
+                    <b>filtered by {business_area_filter}</b>
                     <Router history={browserHistory}>
                         <Route path="/" component={() => (<ProcessCatalogCardList processes={this.state.filteredProcesses} />)} />
                         {/* Testing Routes */}
-                        <Route path="/icons" component={IconTesting} />
+                        <Route path="/icons" component={TestIcons} />
                         {/* End Testing Routes */}
                         <Route onEnter={requireAuth}>
                             {/* Place all authenticated routes here */}
                             <Route path="/profile/edit" component={EditProfile} />
                             <Route path="/addProcess" component={Wizard} />
+                            <Route path="/editProcess" component={ProcessCatalogEdit} />
                         </Route>
                     </Router>
                     <ProcessCatalogBottomNavigation />

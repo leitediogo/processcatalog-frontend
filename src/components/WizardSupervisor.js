@@ -8,6 +8,13 @@ import { Table, TableRow, TableBody, TableRowColumn, TableHeader, TableHeaderCol
 import IconDelete from 'material-ui/svg-icons/action/delete'
 import Dialog from 'material-ui/Dialog'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: 'black',
+  }
+})
+
 const iconDelete = <IconDelete />
 
 const styles = {
@@ -76,7 +83,7 @@ class WizardSupervisor extends Component {
     render() {
 
         return (
-            <MuiThemeProvider>
+             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <Paper zDepth={0} style={styles.paper}>
                         <Table>

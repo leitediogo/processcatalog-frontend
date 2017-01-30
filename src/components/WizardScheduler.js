@@ -7,9 +7,15 @@ import TriggerSectionEmail from './TriggerSectionEmail'
 import TriggerSectionFile from './TriggerSectionFile'
 import TriggerSectionIdle from './TriggerSectionIdle'
 import TriggerSectionManual from './TriggerSectionManual'
-import TriggerSectionPing from './TriggerSectionPing'
 import TriggerSectionProcess from './TriggerSectionProcess'
 import TriggerSectionTime from './TriggerSectionTime'
+
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: 'black',
+  }
+})
 
 const styles = {
     block: {
@@ -61,7 +67,6 @@ class WizardScheduler extends Component {
     }
 
     render() {
-
         let triggerSection = ''
         switch (this.props.definition.scheduleType) {
             case 'Email monitor':
@@ -76,9 +81,6 @@ class WizardScheduler extends Component {
             case 'Manual':
                 triggerSection = <TriggerSectionManual />
                 break
-            case 'Ping':
-                triggerSection = <TriggerSectionPing />
-                break
             case 'Process':
                 triggerSection = <TriggerSectionProcess />
                 break
@@ -89,9 +91,8 @@ class WizardScheduler extends Component {
                 break
         }
 
-
         return (
-            <MuiThemeProvider>
+             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={styles.block}>
                     <Paper zDepth={0} style={styles.paper}>
                         <SelectField
@@ -105,7 +106,6 @@ class WizardScheduler extends Component {
                             <MenuItem value={'File monitor'} primaryText="File monitor" />
                             <MenuItem value={'Idle monitor'} primaryText="Idle monitor" />
                             <MenuItem value={'Manual'} primaryText="Manual" />
-                            <MenuItem value={'Ping'} primaryText="Ping" />
                             <MenuItem value={'Process'} primaryText="Process" />
                             <MenuItem value={'Time Elapsed'} primaryText="Time Elapsed" />
                         </SelectField>

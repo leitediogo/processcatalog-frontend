@@ -5,6 +5,12 @@ import Paper from 'material-ui/Paper'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: 'black',
+  }
+})
 
 const styles = {
     paper: {
@@ -22,7 +28,7 @@ const styles = {
 class WizardIdentification extends Component {
     render() {
         return (
-            <MuiThemeProvider>
+             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <Paper zDepth={0} style={styles.paper}>
                         <TextField
@@ -30,7 +36,7 @@ class WizardIdentification extends Component {
                             hintText="Insert Process Name"
                             floatingLabelText="Process Name"
                             value={this.props.definition.name}
-                            onChange={this.props.handleDefinitionInputChange}
+                            onChange={this.props.handleInputChange}
                             />
                         <br />
                         <TextField
@@ -38,7 +44,7 @@ class WizardIdentification extends Component {
                             hintText="Insert Process Description"
                             floatingLabelText="Process Description"
                             value={this.props.definition.description}
-                            onChange={this.props.handleDefinitionInputChange}
+                            onChange={this.props.handleInputChange}
                             multiLine={true}
                             rows={2}
                             />

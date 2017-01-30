@@ -13,6 +13,13 @@ import Dialog from 'material-ui/Dialog'
 import IconButton from 'material-ui/IconButton'
 import TimePicker from 'material-ui/TimePicker'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: 'black',
+  }
+})
+
 const styles = {
     paper: {
         margin: 20,
@@ -109,7 +116,7 @@ class WizardFlow extends Component {
 
     render() {
         return (
-            <MuiThemeProvider>
+             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <Paper zDepth={0} style={styles.paper}>
                         <Table>

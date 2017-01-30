@@ -13,9 +13,12 @@ const styles = {
         cursor: 'pointer'
     },
     bar: {
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        position: "fixed"
     }
 }
+
+
 
 class ProcessCatalogAppBar extends Component {
 

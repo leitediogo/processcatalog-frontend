@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Visibility from 'material-ui/svg-icons/action/visibility'
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off'
 
@@ -32,15 +32,28 @@ import Extension from 'material-ui/svg-icons/action/extension'
 import Class from 'material-ui/svg-icons/action/class'
 
 //check https://www.materialui.co/icons
+const styles = {
+    iconStyle: {
+        width: 200,
+        height: 200,
+        color: 'lightGray'
+    },
+    iconDivStyle: {
+        textAlign: 'center',
+    }
+};
 
-class IconTesting extends Component {
+class TestIcons extends Component {
     render() {
         return (
             <MuiThemeProvider>
                 <div>
-                <br/>
-                <br/>
-                <br/>
+                    <br />
+                    <br />
+                    <br />
+                    <div style={styles.iconDivStyle}>
+                        <InsertChart style={styles.iconStyle}/>
+                    </div>
                     <h1> Actions </h1>
                     <Visibility />
                     <VisibilityOff />
@@ -58,27 +71,27 @@ class IconTesting extends Component {
                     <Allout />
                     <Android />
                     <Announcement />
-                    <Supervisor/>
+                    <Supervisor />
 
                     <h1> Banking </h1>
-                    <Business /> : Mortgage <br/>
-                    <Supervisor/>  :Human Resources <br/>
-                    <Gavel/> : Risk & Compliance <br/>
-                    <Language/> : International <br/>
-                    <CreditCard/> : Cards <br/>
-                    <LocalATM/> : Payments <br/>
-                    <MonetizationOn/> : Trade Finance <br/>
-                    <Accountbalance/> : Operations & Execution <br/>
-                    <InsertChart/> : Marketing <br/>
-                    <AttachMoney/> : Sales & Service <br/>
-                    <Extension/> : IT Management <br/>
-                    <Class/> : Loans <br/>
+                    <Business /> : Mortgage <br />
+                    <Supervisor />  :Human Resources <br />
+                    <Gavel /> : Risk & Compliance <br />
+                    <Language /> : International <br />
+                    <CreditCard /> : Cards <br />
+                    <LocalATM /> : Payments <br />
+                    <MonetizationOn /> : Trade Finance <br />
+                    <Accountbalance /> : Operations & Execution <br />
+                    <InsertChart /> : Marketing <br />
+                    <AttachMoney /> : Sales & Service <br />
+                    <Extension /> : IT Management <br />
+                    <Class /> : Loans <br />
 
-                    
+
                 </div>
             </MuiThemeProvider>
         );
     }
 }
 
-export default IconTesting;
+export default TestIcons

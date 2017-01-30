@@ -4,6 +4,13 @@ import Paper from 'material-ui/Paper'
 import { List, ListItem } from 'material-ui/List'
 import Checkbox from 'material-ui/Checkbox'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: 'black',
+  }
+})
+
 const styles = {
     block: {
         maxWidth: 250,
@@ -28,7 +35,7 @@ class WizardNotifications extends Component {
     render() {
 
         return (
-            <MuiThemeProvider>
+             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={styles.block}>
                     <Paper zDepth={0} style={styles.paper}>
                         <List>

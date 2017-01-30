@@ -1,12 +1,31 @@
 import React from 'react'
 import { Component } from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import ProcessCatalogCard from './ProcessCatalogCard'
 import ProcessCatalogAddFloatingButton from './ProcessCatalogAddFloatingButton'
 import { connectProfile } from '../auth'
+import InsertChart from 'material-ui/svg-icons/editor/insert-chart'
 
-let style = {
-    margin: 20,
-    textAlign: 'center'
+const styles = {
+    icon: {
+        width: 200,
+        height: 200,
+        color: 'gray'
+    },
+    iconDiv: {
+        textAlign: 'center',
+        position: 'absolute',
+        //border: '1px solid #131313',
+        top: '25%',
+        left: '25%',
+        bottom: '25%',
+        right: '25%'
+    },
+    cardDiv: {
+        margin: 20,
+        textAlign: 'center'
+
+    }
 }
 
 class ProcessCatalogCardList extends Component {
@@ -20,16 +39,18 @@ class ProcessCatalogCardList extends Component {
             )
         }
         return (
-            <div>
-                <br />
-                <br />
-                <br />
-                <div style={style}>{cards}</div>
-                {(profile) ? <ProcessCatalogAddFloatingButton /> : ''}
-                <br />
-                <br />
-                <br />
-            </div>
+            <MuiThemeProvider>
+                <div>
+                    <br />
+                    <br />
+                    <br />
+                    {(cards.length === 0) ? <div style={styles.iconDiv}><InsertChart style={styles.icon} /></div> : <div style={styles.cardDiv}>{cards}</div>}
+                    {(profile) ? <ProcessCatalogAddFloatingButton /> : ''}
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </MuiThemeProvider>
         )
     }
 }
