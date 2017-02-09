@@ -1,6 +1,5 @@
 import React from 'react'
 import { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import ProcessCatalogCard from './ProcessCatalogCard'
 import ProcessCatalogAddFloatingButton from './ProcessCatalogAddFloatingButton'
 import { connectProfile } from '../auth'
@@ -10,7 +9,7 @@ const styles = {
     icon: {
         width: 200,
         height: 200,
-        color: 'gray'
+        color: '#455A64'
     },
     iconDiv: {
         textAlign: 'center',
@@ -39,18 +38,16 @@ class ProcessCatalogCardList extends Component {
             )
         }
         return (
-            <MuiThemeProvider>
-                <div>
-                    <br />
-                    <br />
-                    <br />
-                    {(cards.length === 0) ? <div style={styles.iconDiv}><InsertChart style={styles.icon} /></div> : <div style={styles.cardDiv}>{cards}</div>}
-                    {(profile) ? <ProcessCatalogAddFloatingButton /> : ''}
-                    <br />
-                    <br />
-                    <br />
-                </div>
-            </MuiThemeProvider>
+            <div>
+                <br />
+                <br />
+                <br />
+                {(cards.length === 0) ? <div style={styles.iconDiv}><InsertChart style={styles.icon} /></div> : <div style={styles.cardDiv}>{cards}</div>}
+                {(profile) ? <ProcessCatalogAddFloatingButton /> : ''}
+                <br />
+                <br />
+                <br />
+            </div>
         )
     }
 }

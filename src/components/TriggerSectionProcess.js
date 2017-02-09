@@ -39,7 +39,7 @@ class TriggerSectionProcess extends Component {
                     floatingLabelText="Process"
                     value={this.state.process}
                     onChange={this.handleProcessSelect}
-                    >
+                >
                     <MenuItem value={'Insolvency Management'} primaryText="Insolvency Management" />
                     <MenuItem value={'Claims Request'} primaryText="Claims Request" />
                 </SelectField>
@@ -49,7 +49,7 @@ class TriggerSectionProcess extends Component {
                     floatingLabelText="Event"
                     value={this.state.processEvent}
                     onChange={this.handleProcessEventSelect}
-                    >
+                >
                     <MenuItem value={'Starts'} primaryText="Starts" />
                     <MenuItem value={'Ends'} primaryText="Ends" />
                     <MenuItem value={'Exception'} primaryText="Exception" />

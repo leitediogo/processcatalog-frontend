@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Paper from 'material-ui/Paper'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -9,13 +8,6 @@ import TriggerSectionIdle from './TriggerSectionIdle'
 import TriggerSectionManual from './TriggerSectionManual'
 import TriggerSectionProcess from './TriggerSectionProcess'
 import TriggerSectionTime from './TriggerSectionTime'
-
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: 'black',
-  }
-})
 
 const styles = {
     block: {
@@ -92,30 +84,28 @@ class WizardScheduler extends Component {
         }
 
         return (
-             <MuiThemeProvider muiTheme={muiTheme}>
-                <div style={styles.block}>
-                    <Paper zDepth={0} style={styles.paper}>
-                        <SelectField
-                            id="scheduleType"
-                            style={styles.select}
-                            floatingLabelText="Trigger"
-                            value={this.props.definition.scheduleType}
-                            onChange={this.props.handleDefinitionScheduleTypeChange}
-                            >
-                            <MenuItem value={'Email monitor'} primaryText="Email monitor" />
-                            <MenuItem value={'File monitor'} primaryText="File monitor" />
-                            <MenuItem value={'Idle monitor'} primaryText="Idle monitor" />
-                            <MenuItem value={'Manual'} primaryText="Manual" />
-                            <MenuItem value={'Process'} primaryText="Process" />
-                            <MenuItem value={'Time Elapsed'} primaryText="Time Elapsed" />
-                        </SelectField>
-                        <br />
-                        <br />
-                        <br />
-                        {triggerSection}
-                    </Paper>
-                </div>
-            </MuiThemeProvider>
+            <div style={styles.block}>
+                <Paper zDepth={0} style={styles.paper}>
+                    <SelectField
+                        id="scheduleType"
+                        style={styles.select}
+                        floatingLabelText="Trigger"
+                        value={this.props.definition.scheduleType}
+                        onChange={this.props.handleDefinitionScheduleTypeChange}
+                    >
+                        <MenuItem value={'Email monitor'} primaryText="Email monitor" />
+                        <MenuItem value={'File monitor'} primaryText="File monitor" />
+                        <MenuItem value={'Idle monitor'} primaryText="Idle monitor" />
+                        <MenuItem value={'Manual'} primaryText="Manual" />
+                        <MenuItem value={'Process'} primaryText="Process" />
+                        <MenuItem value={'Time Elapsed'} primaryText="Time Elapsed" />
+                    </SelectField>
+                    <br />
+                    <br />
+                    <br />
+                    {triggerSection}
+                </Paper>
+            </div>
         )
     }
 }

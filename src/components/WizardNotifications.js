@@ -1,15 +1,7 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Paper from 'material-ui/Paper'
 import { List, ListItem } from 'material-ui/List'
 import Checkbox from 'material-ui/Checkbox'
-
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: 'black',
-  }
-})
 
 const styles = {
     block: {
@@ -35,56 +27,54 @@ class WizardNotifications extends Component {
     render() {
 
         return (
-             <MuiThemeProvider muiTheme={muiTheme}>
-                <div style={styles.block}>
-                    <Paper zDepth={0} style={styles.paper}>
-                        <List>
-                            <ListItem
-                                leftCheckbox={<Checkbox
-                                    id="notifySupervisorOnError"
-                                    style={styles.checkbox}
-                                    checked={this.props.definition.notifySupervisorOnError}
-                                    onCheck={this.props.handleCheckChange}
-                                    />}
-                                primaryText="Notify Supervisor on Error"
-                                secondaryText="When an error occurs supervisors will be notified via email"
-                                />
-                            <ListItem
-                                leftCheckbox={<Checkbox
-                                    id="notifySupervisorOnEnd"
-                                    style={styles.checkbox}
-                                    checked={this.props.definition.notifySupervisorOnEnd}
-                                    onCheck={this.props.handleCheckChange}
-                                    />}
-                                primaryText="Notify Supervisor On End"
-                                secondaryText="When process ends execution supervisors will be notified via email"
-                                />
-                            <ListItem
-                                leftCheckbox={<Checkbox
-                                    id="AssignSupervisorOnError"
-                                    style={styles.checkbox}
-                                    checked={this.props.definition.AssignSupervisorOnError}
-                                    onCheck={this.props.handleCheckChange}
-                                    />}
-                                primaryText="Assign to Supervisor On Error"
-                                secondaryText="When an error occurs a task will be delivered to the supervisors"
-                                />
-                            <ListItem
-                                leftCheckbox={<Checkbox
-                                    id="blockProcessExecution"
-                                    style={styles.checkbox}
-                                    checked={this.props.definition.blockProcessExecution}
-                                    onCheck={this.props.handleCheckChange}
-                                    />}
-                                primaryText="Block Process Execution"
-                                secondaryText="When an error occurs the process stops executing"
-                                />
-                        </List>
-                        <br />
-                        <br />
-                    </Paper>
-                </div>
-            </MuiThemeProvider>
+            <div style={styles.block}>
+                <Paper zDepth={0} style={styles.paper}>
+                    <List>
+                        <ListItem
+                            leftCheckbox={<Checkbox
+                                id="notifySupervisorOnError"
+                                style={styles.checkbox}
+                                checked={this.props.definition.notifySupervisorOnError}
+                                onCheck={this.props.handleCheckChange}
+                            />}
+                            primaryText="Notify Supervisor on Error"
+                            secondaryText="When an error occurs supervisors will be notified via email"
+                        />
+                        <ListItem
+                            leftCheckbox={<Checkbox
+                                id="notifySupervisorOnEnd"
+                                style={styles.checkbox}
+                                checked={this.props.definition.notifySupervisorOnEnd}
+                                onCheck={this.props.handleCheckChange}
+                            />}
+                            primaryText="Notify Supervisor On End"
+                            secondaryText="When process ends execution supervisors will be notified via email"
+                        />
+                        <ListItem
+                            leftCheckbox={<Checkbox
+                                id="AssignSupervisorOnError"
+                                style={styles.checkbox}
+                                checked={this.props.definition.AssignSupervisorOnError}
+                                onCheck={this.props.handleCheckChange}
+                            />}
+                            primaryText="Assign to Supervisor On Error"
+                            secondaryText="When an error occurs a task will be delivered to the supervisors"
+                        />
+                        <ListItem
+                            leftCheckbox={<Checkbox
+                                id="blockProcessExecution"
+                                style={styles.checkbox}
+                                checked={this.props.definition.blockProcessExecution}
+                                onCheck={this.props.handleCheckChange}
+                            />}
+                            primaryText="Block Process Execution"
+                            secondaryText="When an error occurs the process stops executing"
+                        />
+                    </List>
+                    <br />
+                    <br />
+                </Paper>
+            </div>
         );
     }
 }

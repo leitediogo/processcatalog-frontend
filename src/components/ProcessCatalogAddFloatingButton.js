@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
@@ -11,6 +10,7 @@ const styles = {
         position: "fixed",
         bottom: "8%",
         right: "1%",
+        backgroundColor: '#0097A7'
     }
 }
 
@@ -21,11 +21,9 @@ class ProcessCatalogAddFloatingButton extends Component {
     }
     render() {
         return (
-            <MuiThemeProvider>
-                    <FloatingActionButton style={styles.floatButton} backgroundColor='black' href="\addProcess">
-                        <ContentAdd />
-                    </FloatingActionButton>
-            </MuiThemeProvider>
+            <FloatingActionButton style={styles.floatButton} href="\addProcess">
+                <ContentAdd />
+            </FloatingActionButton>
         )
     }
 }

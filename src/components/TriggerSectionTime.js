@@ -31,18 +31,18 @@ class TriggerSectionTime extends Component {
                     floatingLabelText="Period"
                     value={this.state.firePeriod}
                     onChange={this.handleFirePeriodSelect}
-                    >
+                >
                     <MenuItem value={'Daily'} primaryText="Daily" />
                     <MenuItem value={'Weekly'} primaryText="Weekly" />
                     <MenuItem value={'Monthly'} primaryText="Monthly" />
                     <MenuItem value={'Yearly'} primaryText="Yearly" />
                 </SelectField>
-                <DatePicker 
-                    hintText="Starting..." 
-                    container="inline" 
-                    //value={this.state.starting}
-                    //onChange={this.handleFirePeriodSelect}
-                    />
+                <DatePicker
+                    hintText="Starting..."
+                    container="inline"
+                //value={this.state.starting}
+                //onChange={this.handleFirePeriodSelect}
+                />
 
                 <br />
             </div>

@@ -28,14 +28,14 @@ class TriggerSectionFile extends Component {
                     id="pathToFile"
                     hintText="Insert Path to File"
                     floatingLabelText="Path to File"
-                    />
+                />
                 <br />
                 <SelectField
                     id="fileEvent"
                     floatingLabelText="Event"
                     value={this.state.fileEvent}
                     onChange={this.handlefileEventSelect}
-                    >
+                >
                     <MenuItem value={'Created'} primaryText="Created" />
                     <MenuItem value={'Changed'} primaryText="Changed" />
                     <MenuItem value={'Deleted'} primaryText="Deleted" />

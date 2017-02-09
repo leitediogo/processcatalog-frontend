@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import ProcessCatalogAppBarRightIconMenu from './ProcessCatalogAppBarRightIconMenu'
 import ProcessCatalogAppBarLeftIconMenu from './ProcessCatalogAppBarLeftIconMenu'
@@ -12,13 +11,10 @@ const styles = {
     title: {
         cursor: 'pointer'
     },
-    bar: {
-        backgroundColor: 'black',
-        position: "fixed"
+    login: {
+        backgroundColor: "#0097A7"
     }
 }
-
-
 
 class ProcessCatalogAppBar extends Component {
 
@@ -30,17 +26,15 @@ class ProcessCatalogAppBar extends Component {
     render() {
         const {profile} = this.props
         return (
-            <MuiThemeProvider>
-                <div>
-                    <AppBar
-                        title={<span style={styles.title}>Process Catalog</span>}
-                        style={styles.bar}
-                        onTitleTouchTap={this.handleAppBarClick}
-                        iconElementRight={(profile) ? <ProcessCatalogAppBarRightIconMenu /> : <FlatButton label="Login" onClick={() => { login() } } />}
-                        iconElementLeft={<ProcessCatalogAppBarLeftIconMenu filterProcesses={this.props.filterProcesses} />}
-                        />
-                </div>
-            </MuiThemeProvider>
+            <div>
+                <AppBar
+                    title={<span style={styles.title}>Process Catalog</span>}
+                    style={styles.bar}
+                    onTitleTouchTap={this.handleAppBarClick}
+                    iconElementRight={(profile) ? <ProcessCatalogAppBarRightIconMenu /> : <FlatButton label="Login" onClick={() => { login() }} style={styles.login} />}
+                    iconElementLeft={<ProcessCatalogAppBarLeftIconMenu filterProcesses={this.props.filterProcesses} />}
+                />
+            </div>
         )
     }
 }

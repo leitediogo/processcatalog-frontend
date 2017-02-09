@@ -1,28 +1,18 @@
-
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import agent from 'superagent'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper'
 import { browserHistory } from 'react-router'
-
+import { connectProfile } from '../auth'
 import WizardIdentification from './WizardIdentification'
 import WizardFlow from './WizardFlow'
 import WizardSupervisor from './WizardSupervisor'
 import WizardNotifications from './WizardNotifications'
 import WizardScheduler from './WizardScheduler'
-import { connectProfile } from '../auth'
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: 'black',
-  }
-});
-
-const api_server_name=process.env.REACT_APP_API_SERVER_NAME
-const api_server_port=process.env.REACT_APP_API_SERVER_PORT
+const api_server_name = process.env.REACT_APP_API_SERVER_NAME
+const api_server_port = process.env.REACT_APP_API_SERVER_PORT
 
 class Wizard extends Component {
 
@@ -44,7 +34,7 @@ class Wizard extends Component {
                 notifySupervisorOnError: false,
                 AssignSupervisorOnError: false,
                 blockProcessExecution: false,
-                scheduleType:'',
+                scheduleType: '',
                 scheduleMailServer: '',
                 supervisorTeam: [],
                 flow: [],
@@ -87,7 +77,7 @@ class Wizard extends Component {
         console.log(this.state)
     }
 
-        //TODO: Generalize selects per name
+    //TODO: Generalize selects per name
     handleDefinitionScheduleTypeChange = (event, index, value) => {
         let change = this.state
         change.definition.scheduleType = value
@@ -154,7 +144,7 @@ class Wizard extends Component {
         change.definition.version = '1.0'
         change.definition.status = 'Certification'
         this.setState(change)
-        agent.post('http://'+ api_server_name + ':' + api_server_port + '/api/Processes')
+        agent.post('http://' + api_server_name + ':' + api_server_port + '/api/Processes')
             .send({
                 name: this.state.definition.name,
                 definition: this.state.definition
@@ -179,7 +169,7 @@ class Wizard extends Component {
                             handleInputChange={this.handleInputChange.bind(this)}
                             handleDefinitionBusinessAreaChange={this.handleDefinitionBusinessAreaChange.bind(this)}
                             handleDefinitionTypeChange={this.handleDefinitionTypeChange.bind(this)}
-                            />
+                        />
                     </div>
                 )
             case 1:
@@ -188,7 +178,7 @@ class Wizard extends Component {
                         <WizardFlow
                             definition={this.state.definition}
                             handleSaveFlow={this.handleSaveFlow.bind(this)}
-                            />
+                        />
                     </div>
                 )
             case 2:
@@ -197,7 +187,7 @@ class Wizard extends Component {
                         <WizardSupervisor
                             definition={this.state.definition}
                             handleSaveSupervisor={this.handleSaveSupervisor.bind(this)}
-                            />
+                        />
                     </div>
                 )
             case 3:
@@ -206,7 +196,7 @@ class Wizard extends Component {
                         <WizardNotifications
                             definition={this.state.definition}
                             handleCheckChange={this.handleCheckChange.bind(this)}
-                            />
+                        />
                     </div>
                 )
             case 4:
@@ -215,7 +205,7 @@ class Wizard extends Component {
                         <WizardScheduler
                             definition={this.state.definition}
                             handleDefinitionScheduleTypeChange={this.handleDefinitionScheduleTypeChange.bind(this)}
-                            />
+                        />
                     </div>
                 )
             default:
@@ -226,47 +216,45 @@ class Wizard extends Component {
     render() {
         const {stepIndex} = this.state
         return (
-            <MuiThemeProvider muiTheme={muiTheme}>
-                <div style={{ width: '100%', maxWidth: 700, margin: 'auto'}} >
-                    <br /><br /><br />
-                    <Stepper activeStep={stepIndex}>
-                        <Step>
-                            <StepLabel>Identification</StepLabel>
-                        </Step>
-                        <Step>
-                            <StepLabel>Sequence</StepLabel>
-                        </Step>
-                        <Step>
-                            <StepLabel>Supervision</StepLabel>
-                        </Step>
-                        <Step>
-                            <StepLabel>Exception Handling</StepLabel>
-                        </Step>
-                        <Step>
-                            <StepLabel>Trigger</StepLabel>
-                        </Step>
-                    </Stepper>
+            <div style={{ width: '100%', maxWidth: 700, margin: 'auto' }} >
+                <br /><br /><br />
+                <Stepper activeStep={stepIndex}>
+                    <Step>
+                        <StepLabel>Identification</StepLabel>
+                    </Step>
+                    <Step>
+                        <StepLabel>Sequence</StepLabel>
+                    </Step>
+                    <Step>
+                        <StepLabel>Supervision</StepLabel>
+                    </Step>
+                    <Step>
+                        <StepLabel>Exception Handling</StepLabel>
+                    </Step>
+                    <Step>
+                        <StepLabel>Trigger</StepLabel>
+                    </Step>
+                </Stepper>
+                <div>
                     <div>
-                        <div>
-                            {this.getStepContent(stepIndex)}
-                            <div style={{ marginTop: 12 }}>
-                                <FlatButton
-                                    label="Back"
-                                    disabled={stepIndex === 0}
-                                    onTouchTap={this.handlePrevWizard}
-                                    style={{ marginRight: 12 }}
-                                    />
-                                <RaisedButton
-                                    label={stepIndex === 4 ? 'Finish' : 'Next'}
-                                    primary={true}
-                                    onTouchTap={stepIndex === 4 ? this.handleFinishWizard : this.handleNextWizard}
-                                    />
-                            </div>
+                        {this.getStepContent(stepIndex)}
+                        <div style={{ marginTop: 12 }}>
+                            <FlatButton
+                                label="Back"
+                                disabled={stepIndex === 0}
+                                onTouchTap={this.handlePrevWizard}
+                                style={{ marginRight: 12 }}
+                            />
+                            <RaisedButton
+                                label={stepIndex === 4 ? 'Finish' : 'Next'}
+                                primary={true}
+                                onTouchTap={stepIndex === 4 ? this.handleFinishWizard : this.handleNextWizard}
+                            />
                         </div>
                     </div>
                 </div>
-            </MuiThemeProvider>
-        );
+            </div>
+        )
     }
 }
 

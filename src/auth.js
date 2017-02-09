@@ -3,7 +3,7 @@ import { EventEmitter } from 'events'
 import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import Auth0Lock from 'auth0-lock'
-import robo from './images/robo52.png'
+import robo from './images/robo48.png'
 
 const NEXT_PATH_KEY = 'next_path';
 const ID_TOKEN_KEY = 'id_token';

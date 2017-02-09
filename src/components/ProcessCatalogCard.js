@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Card, CardActions, CardHeader, CardTitle, CardText, CardMedia } from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardTitle, CardText, CardMedia } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import agent from 'superagent'
@@ -97,51 +96,49 @@ class ProcessCatalogCard extends Component {
 
     render() {
         return (
-            <MuiThemeProvider>
-                <div>
-                    <Card zDepth={1} style={styles.card} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-                        <CardHeader
-                            title="Created By"
-                            subtitle={this.props.process.definition.createdBy}
-                            avatar={this.props.process.definition.createdByAvatar}
-                            actAsExpander={true}
-                            showExpandableButton={true}
-                            />
-                        <CardTitle
-                            title={this.props.process.definition.name}
-                            subtitle={this.props.process.definition.businessArea}
-                            />
-                        <CardText>{this.props.process.definition.cardText}</CardText>
-                        <CardMedia expandable={true}>
-                            <div>
-                                <label> <b> Description </b> </label>
-                                <p>{this.props.process.definition.description}</p>
-                                <TextField
-                                    disabled={true}
-                                    defaultValue={this.props.process.definition.version}
-                                    floatingLabelText="Version"
-                                    /><br />
-                                <TextField
-                                    disabled={true}
-                                    value={this.state.status}
-                                    floatingLabelText="Status"
-                                    /><br />
+            <div>
+                <Card zDepth={1} style={styles.card} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+                    <CardHeader
+                        title="Created By"
+                        subtitle={this.props.process.definition.createdBy}
+                        avatar={this.props.process.definition.createdByAvatar}
+                        actAsExpander={true}
+                        showExpandableButton={true}
+                    />
+                    <CardTitle
+                        title={this.props.process.definition.name}
+                        subtitle={this.props.process.definition.businessArea}
+                    />
+                    <CardText>{this.props.process.definition.cardText}</CardText>
+                    <CardMedia expandable={true}>
+                        <div>
+                            <label> <b> Description </b> </label>
+                            <p>{this.props.process.definition.description}</p>
+                            <TextField
+                                disabled={true}
+                                defaultValue={this.props.process.definition.version}
+                                floatingLabelText="Version"
+                            /><br />
+                            <TextField
+                                disabled={true}
+                                value={this.state.status}
+                                floatingLabelText="Status"
+                            /><br />
 
-                                <TextField
-                                    disabled={true}
-                                    defaultValue={this.props.process.definition.type}
-                                    floatingLabelText="Type"
-                                    /><br />
-                            </div>
-                        </CardMedia>
-                        <CardActions expandable={true}>
-                            <FlatButton label={this.state.publishLabel} onClick={this.handlePublish} />
-                            <FlatButton label="Edit" onClick={this.handleEdit} />
-                        </CardActions>
+                            <TextField
+                                disabled={true}
+                                defaultValue={this.props.process.definition.type}
+                                floatingLabelText="Type"
+                            /><br />
+                        </div>
+                    </CardMedia>
+                    <CardActions expandable={true}>
+                        <FlatButton label={this.state.publishLabel} onClick={this.handlePublish} />
+                        <FlatButton label="Edit" onClick={this.handleEdit} />
+                    </CardActions>
 
-                    </Card>
-                </div>
-            </MuiThemeProvider>
+                </Card>
+            </div>
         )
     }
 }

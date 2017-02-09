@@ -1,7 +1,5 @@
 
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import TextField from 'material-ui/TextField'
 import Paper from 'material-ui/Paper'
 import SelectField from 'material-ui/SelectField'
@@ -11,12 +9,6 @@ import FlatButton from 'material-ui/FlatButton'
 import { Tabs, Tab } from 'material-ui/Tabs'
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views'
-
-const muiTheme = getMuiTheme({
-    palette: {
-        primary1Color: 'gray',
-    }
-})
 
 const styles = {
     paper: {
@@ -63,7 +55,6 @@ class ProcessCatalogEdit extends Component {
                 <br />
                 <br />
                 <br />
-                <MuiThemeProvider muiTheme={muiTheme}>
                     <div>
                         <div>
                             <Tabs
@@ -145,7 +136,6 @@ class ProcessCatalogEdit extends Component {
                         <br />
                         <br />
                     </div>
-                </MuiThemeProvider>
             </div>
         );
     }

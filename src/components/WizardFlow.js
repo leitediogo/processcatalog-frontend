@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import TextField from 'material-ui/TextField'
 import Paper from 'material-ui/Paper'
 import SelectField from 'material-ui/SelectField'
@@ -12,13 +11,6 @@ import IconEdit from 'material-ui/svg-icons/editor/mode-edit'
 import Dialog from 'material-ui/Dialog'
 import IconButton from 'material-ui/IconButton'
 import TimePicker from 'material-ui/TimePicker'
-
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: 'black',
-  }
-})
 
 const styles = {
     paper: {
@@ -105,110 +97,108 @@ class WizardFlow extends Component {
             label="Cancel"
             primary={true}
             onTouchTap={this.handleCloseModal}
-            />,
+        />,
         <FlatButton
             label="Save"
             primary={true}
             keyboardFocused={true}
             onTouchTap={this.handleSendSaveFlow}
-            />
+        />
     ]
 
     render() {
         return (
-             <MuiThemeProvider muiTheme={muiTheme}>
-                <div>
-                    <Paper zDepth={0} style={styles.paper}>
-                        <Table>
-                            <TableHeader
-                                displaySelectAll={false}
-                                adjustForCheckbox={false}
-                                enableSelectAll={false}
-                                >
-                                <TableRow>
-                                    <TableHeaderColumn>Order</TableHeaderColumn>
-                                    <TableHeaderColumn>Name</TableHeaderColumn>
-                                    <TableHeaderColumn>Type</TableHeaderColumn>
-                                    <TableHeaderColumn>Actions</TableHeaderColumn>
+            <div>
+                <Paper zDepth={0} style={styles.paper}>
+                    <Table>
+                        <TableHeader
+                            displaySelectAll={false}
+                            adjustForCheckbox={false}
+                            enableSelectAll={false}
+                        >
+                            <TableRow>
+                                <TableHeaderColumn>Order</TableHeaderColumn>
+                                <TableHeaderColumn>Name</TableHeaderColumn>
+                                <TableHeaderColumn>Type</TableHeaderColumn>
+                                <TableHeaderColumn>Actions</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody displayRowCheckbox={false} >
+                            {this.props.definition.flow.map((row, index) => (
+                                <TableRow key={index} selected={row.selected}>
+                                    <TableRowColumn>{row.order}</TableRowColumn>
+                                    <TableRowColumn>{row.name}</TableRowColumn>
+                                    <TableRowColumn>{row.type}</TableRowColumn>
+                                    <TableRowColumn>
+                                        <IconButton id="1" tooltip="Delete row" onTouchTap={this.handleDeleteRow.bind(this)} >
+                                            <IconDelete />
+                                        </IconButton>
+                                        <IconButton tooltip="Edit row" onTouchTap={this.handleEditRow.bind(this)} >
+                                            <IconEdit />
+                                        </IconButton>
+                                    </TableRowColumn>
                                 </TableRow>
-                            </TableHeader>
-                            <TableBody displayRowCheckbox={false} >
-                                {this.props.definition.flow.map((row, index) => (
-                                    <TableRow key={index} selected={row.selected}>
-                                        <TableRowColumn>{row.order}</TableRowColumn>
-                                        <TableRowColumn>{row.name}</TableRowColumn>
-                                        <TableRowColumn>{row.type}</TableRowColumn>
-                                        <TableRowColumn>
-                                            <IconButton id="1" tooltip="Delete row" onTouchTap={this.handleDeleteRow.bind(this)} >
-                                                <IconDelete />
-                                            </IconButton>
-                                            <IconButton tooltip="Edit row" onTouchTap={this.handleEditRow.bind(this)} >
-                                                <IconEdit />
-                                            </IconButton>
-                                        </TableRowColumn>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                        <RaisedButton label="Add Flow Step" onTouchTap={this.handleOpenModal} fullWidth={true} />
-                        <Dialog
-                            title="Add flow step"
-                            actions={this.actions}
-                            modal={false}
-                            open={this.state.open}
-                            onRequestClose={this.handleCloseModal}
-                            >
-                            <TextField
-                                id="tmpFlowName"
-                                hintText="Insert Flow Step Name"
-                                floatingLabelText="Process Flow Step Name"
-                                value={this.state.tmpFlowName}
-                                onChange={this.handleInputChange.bind(this)}
-                                />
-                            <br />
-                            <SelectField
-                                id="tmpFlowType"
-                                style={styles.select}
-                                floatingLabelText="Flow Step type"
-                                value={this.state.tmpFlowType}
-                                onChange={this.handleSelectChange.bind(this)}
-                                >
-                                <MenuItem value={'Human Approval Task'} primaryText="Human Approval" />
-                                <MenuItem value={'Extract Web to excel'} primaryText="Extract Web to excel" />
-                                <MenuItem value={'Copy File'} primaryText="Copy File" />
-                                <MenuItem value={'Zip File'} primaryText="Zip File" />
-                                <MenuItem value={'Send Email'} primaryText="Send Email" />
-                                <MenuItem value={'Download from FTP'} primaryText="Download from FTP" />
-                                <MenuItem value={'Populate and submit 3270'} primaryText="Populate and submit 3270" />
-                                <MenuItem value={'Populate and submit webform'} primaryText="Populate and submit webform" />
-                                <MenuItem value={'Get customer by VAT'} primaryText="Get customer by VAT" />
-                                <MenuItem value={'Get accounts by VAT'} primaryText="Get accounts by VAT" />
-                                <MenuItem value={'Block accounts by VAT'} primaryText="Block accounts by VAT" />
-                            </SelectField>
-                            <br />
-                            <TimePicker
-                                id="tmpFlowTimer1"
-                                format="ampm"
-                                hintText="Initial cuttoff hour"
-                                floatingLabelText="Initial cuttoff"
-                                value={this.state.tmpFlowTimer1}
-                                onChange={this.handleChangeTimePicker1}
-                                />
-                            <TimePicker
-                                id="tmpFlowTimer2"
-                                format="ampm"
-                                hintText="Final cuttoff hour"
-                                floatingLabelText="Final cuttoff"
-                                value={this.state.tmpFlowTimer2}
-                                onChange={this.handleChangeTimePicker2}
-                                />
-                            <br />
-                        </Dialog>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    <RaisedButton label="Add Flow Step" onTouchTap={this.handleOpenModal} fullWidth={true} />
+                    <Dialog
+                        title="Add flow step"
+                        actions={this.actions}
+                        modal={false}
+                        open={this.state.open}
+                        onRequestClose={this.handleCloseModal}
+                    >
+                        <TextField
+                            id="tmpFlowName"
+                            hintText="Insert Flow Step Name"
+                            floatingLabelText="Process Flow Step Name"
+                            value={this.state.tmpFlowName}
+                            onChange={this.handleInputChange.bind(this)}
+                        />
                         <br />
+                        <SelectField
+                            id="tmpFlowType"
+                            style={styles.select}
+                            floatingLabelText="Flow Step type"
+                            value={this.state.tmpFlowType}
+                            onChange={this.handleSelectChange.bind(this)}
+                        >
+                            <MenuItem value={'Human Approval Task'} primaryText="Human Approval" />
+                            <MenuItem value={'Extract Web to excel'} primaryText="Extract Web to excel" />
+                            <MenuItem value={'Copy File'} primaryText="Copy File" />
+                            <MenuItem value={'Zip File'} primaryText="Zip File" />
+                            <MenuItem value={'Send Email'} primaryText="Send Email" />
+                            <MenuItem value={'Download from FTP'} primaryText="Download from FTP" />
+                            <MenuItem value={'Populate and submit 3270'} primaryText="Populate and submit 3270" />
+                            <MenuItem value={'Populate and submit webform'} primaryText="Populate and submit webform" />
+                            <MenuItem value={'Get customer by VAT'} primaryText="Get customer by VAT" />
+                            <MenuItem value={'Get accounts by VAT'} primaryText="Get accounts by VAT" />
+                            <MenuItem value={'Block accounts by VAT'} primaryText="Block accounts by VAT" />
+                        </SelectField>
                         <br />
-                    </Paper>
-                </div>
-            </MuiThemeProvider>
+                        <TimePicker
+                            id="tmpFlowTimer1"
+                            format="ampm"
+                            hintText="Initial cuttoff hour"
+                            floatingLabelText="Initial cuttoff"
+                            value={this.state.tmpFlowTimer1}
+                            onChange={this.handleChangeTimePicker1}
+                        />
+                        <TimePicker
+                            id="tmpFlowTimer2"
+                            format="ampm"
+                            hintText="Final cuttoff hour"
+                            floatingLabelText="Final cuttoff"
+                            value={this.state.tmpFlowTimer2}
+                            onChange={this.handleChangeTimePicker2}
+                        />
+                        <br />
+                    </Dialog>
+                    <br />
+                    <br />
+                </Paper>
+            </div>
         )
     }
 }
